@@ -30,8 +30,8 @@
 
 - [ ] **E04-T007** Configuración EF de `Ingredient`, `InventoryMovement`, `IngredientCategory` e `InventoryImport` + migración `AddInventory` + datos semilla de categorías. Depende de T006.
   - Índice único por `NormalizedName`, check `stock >= 0` y `jsonb` para `CustomFields`.
-- [ ] **E04-T008** `InventoryService.AdjustAsync` con bloqueo `FOR UPDATE`, auditoría, evento `StockChanged` y alerta a `ISecurityAlerts` cuando hay `Shortfall`. Depende de T007.
-  - Cumple: AC-INV-05 (alerta).
+- [ ] **E04-T008** `InventoryService.AdjustAsync` con bloqueo `FOR UPDATE`, auditoría, y evento `StockChanged` con `Shortfall` cuando se descuenta más de lo que hay. Depende de T007.
+  - Cumple: AC-INV-05 (el aviso; la alerta de seguridad la crea E09 al escuchar el evento).
   - Prueba de concurrencia: AC-INV-14 (dos ajustes en paralelo).
   - Prueba de auditoría: AC-INV-16.
 - [ ] **E04-T009** Endpoints GET de lista, resumen, detalle y movimientos con filtros. Depende de T007.
@@ -62,8 +62,6 @@
 - [ ] **E04-T017b** `ImportIngredientsDialog` con plantilla, subir y vista previa. Depende de T013c y T015.
   - Comparar contra `img/10`.
   - Cumple: AC-INV-20 a 22 en la UI. Botón *Importar de Excel* en el encabezado y en el estado vacío.
-- [ ] **E04-T018** Botón "A compras" y etiqueta "En la lista". Depende de T015 y de la API de E06.
-  - Cumple: AC-INV-11. **Si E06 no está listo**, dejar el botón detrás de una bandera y anotarlo.
 - [ ] **E04-T019** `MovementHistoryPanel` (kardex paginado) al hacer clic en el nombre. Depende de T009 y T015.
   - Comparar contra `img/11`. Cumple: AC-INV-25.
 - [ ] **E04-T019b** Toma de inventario: tablas, API y `StockCountPage`. Depende de T008 y T015.
@@ -75,5 +73,5 @@
 
 ## Bloque D · Cierre
 
-- [ ] **E04-T022** Recorrido manual de AC-INV-01 a 25 en Windows (MAUI) y web, en modo claro y oscuro. Anotar aquí lo que falle.
+- [ ] **E04-T022** Recorrido manual de AC-INV-01 a 25 (AC-INV-11 se prueba al terminar E06) en Windows (MAUI) y web, en modo claro y oscuro. Anotar aquí lo que falle.
 - [x] **E04-T023** Contestar las preguntas abiertas P-01 a P-04 de la spec. (Benji, 2026-10-30: todas sí)

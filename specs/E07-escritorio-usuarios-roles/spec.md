@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E07 |
 | **Superficie** | Escritorio |
-| **Ola** | 1 · Operación |
+| **Fase** | 1 · Inventario · paso 7 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

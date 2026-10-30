@@ -2,7 +2,7 @@
 
 Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede hacer en paralelo.
 
-> **Mínimo para desbloquear a la otra persona:** T001 a T008. Con eso ya hay solución, base de datos, restaurante, auditoría, permisos y estilos, y se puede empezar E08 y E04.
+> **E00 se termina completo antes de empezar otro epic** (orden en [`docs/epics.md`](../../docs/epics.md)). Los dos pueden trabajar en E00 a la vez: hay muchas tareas `[P]`. Antes de T020 y T024b hay que decidir E00 P-01 (hospedaje) y P-02 (*push*).
 
 ## Bloque A · Solución
 
@@ -29,9 +29,13 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 - [ ] **E00-T011** Dispositivos: códigos de vinculación, registro, `X-Device-Token` y revocar. Depende de T009.
   - Cumple: BR-PLT-02, AC-PLT-01 a 03.
 - [ ] **E00-T012** Login con PIN + bloqueo por intentos. Depende de T011.
-  - Cumple: BR-PLT-01, AC-PLT-04 y 05. La alerta a E09 se hace con una implementación provisional de `ISecurityAlerts`.
+  - Cumple: BR-PLT-01, AC-PLT-04 y 05. Al bloquear, publica el evento interno `PinLockedOut` y avisa al gerente con `INotificationService`. E09 lo convierte en alerta.
 - [ ] **E00-T013** `.RequirePermission()` en endpoints + `NoAccessPage` + `<PermissionView>`. Depende de T009.
   - Cumple: AC-PLT-14.
+- [ ] **E00-T013b** `Modules`, `IModuleGate`, `.RequireModule()` y `<ModuleView>` + candado en `NavRail`, leyendo `organization_modules` (por defecto todos activos; E21 los cambia según el plan). Antes en E21. Depende de T013.
+  - Cumple: BR-SUS-05, AC-SUS-04.
+- [ ] **E00-T013c** Prueba de que todos los endpoints declaran su permiso y su módulo (antes en E21). Depende de T013b.
+  - Cumple: AC-SUS-02.
 - [ ] **E00-T014** Pantallas `LoginPage`, `PairDevicePage`, `PinPadPage` y `LockScreen` + inactividad por tipo de dispositivo. Depende de T010 a T012.
   - Comparar contra `img/06`, `07` y `08`. Cumple: BR-PLT-04, AC-PLT-06.
 

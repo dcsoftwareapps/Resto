@@ -18,6 +18,7 @@ flowchart LR
 | Tabla | Columnas | Notas |
 |---|---|---|
 | `print_jobs` | `Id`, `RestaurantId`, `PrinterId`, `Kind` (`KitchenTicket`, `KitchenCancel`, `Bill`, `Receipt`, `CashCut`, `Test`, `OpenDrawer`), `PayloadJson`, `Status` (`Pending`, `Sent`, `Printed`, `Failed`), `Attempts`, `LastError`, `CreatedAt`, `PrintedAt` | BR-COC-11 |
+| `printers` (antes en E08) | `Id`, `RestaurantId`, `Name`, `Connection` (`Network`, `Usb`), `Host`, `Port`, `UsbName`, `UsbDeviceId` (dispositivo de E00), `PaperWidthMm`, `HasCashDrawer` | BR-CFG-07, BR-COC-13 |
 | `restaurant_settings.PrintHostDeviceId` | (columna nueva en la tabla de E08) | BR-COC-10 |
 
 Los tiempos de cocina se toman de `order_items.SentAt` y `ServedAt` (E02). No se duplican.
@@ -53,8 +54,9 @@ public interface IPrintService   // E02, E03, E08 y E14
 | `POST /api/kitchen/orders/{id}/dispatch?stationId=` | `kitchen.view` |
 | `POST /api/kitchen/items/undo` `{ OrderId, ItemIds[] }` (≤ 10 min) | `kitchen.view` |
 | `POST /api/kitchen/orders/{id}/reprint?stationId=` | `kitchen.view` |
+| CRUD `/api/settings/printers` · `POST /api/settings/printers/{id}/test` (BR-CFG-07) | `settings.manage` |
 | `GET /api/printing/jobs?status=Failed` · `POST /api/printing/jobs/{id}/retry` | `cash.view` |
-| `POST /api/cash/drawer/open` `{ Reason }` (BR-COC-13; acepta `X-Override-Token`) | `cash.withdraw` |
+| `POST /api/cash/drawer/open` `{ Reason }` (BR-COC-13; acepta `X-Override-Token`; lo construye E03-T010b) | `cash.withdraw` |
 
 **Tiempo real:** escucha `OrderSentToKitchen`, `OrderItemCancelled` y `ItemsDispatched` (de otras tablets de la misma estación). Emite `ItemsDispatched` y `PrintJobRequested`/`PrintJobFailed`.
 

@@ -2,7 +2,7 @@
 
 Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede hacer en paralelo.
 
-**Requisitos previos:** E00 (T001 a T013, T018 y T021 a T022). E05, E04, E08, E09 y E13 se usan con implementaciones provisionales hasta que existan.
+**Requisitos previos:** E00, E04, E05, E08 y E09 terminados. Las promociones (E13) llegan después por `IPromotionEngine`, que E02 define con una implementación que no aplica promociones.
 
 ## Bloque A · Dominio
 
@@ -22,7 +22,7 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
   - Cumple: BR-POS-04, AC-POS-05.
 - [ ] **E02-T008** Disponibilidad desde `IMenuCatalog` en la consulta del menú. Depende de T006.
   - Cumple: BR-POS-05, AC-POS-13.
-- [ ] **E02-T009** Cancelar, con *override*, devolución de inventario y alerta. Depende de T006 y de `IManagerOverride` (provisional si E09 no existe).
+- [ ] **E02-T009** Cancelar, con *override*, devolución de inventario y alerta. Depende de T006 y de `IManagerOverride` (E09).
   - Cumple: AC-POS-10 y 11.
 - [ ] **E02-T010** Descuento manual con *override* y alerta. Depende de T009.
   - Cumple: AC-POS-08 y 09.
@@ -44,6 +44,8 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
   - Comparar contra `img/01`.
 - [ ] **E02-T016** `TicketPanel`, `TicketLine` y `PriceBreakdownView`. Depende de T015.
   - Comparar contra `img/01` y `06`.
+- [ ] **E02-T016b** Ejemplo en vivo de la cuenta en *Configuración → Impuestos* (la pestaña es de E08) calculado con `OrderPricing`. Depende de T001 y E08-T009.
+  - Comparar contra `E08 img/01`. Cumple: BR-CFG-02.
 - [ ] **E02-T017** `OrderHistory`. Depende de T016.
   - Comparar contra `img/02`.
 - [ ] **E02-T018** `NewOrderDialog` con los 3 canales. Depende de T015.

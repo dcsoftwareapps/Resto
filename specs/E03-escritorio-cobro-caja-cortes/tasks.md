@@ -1,6 +1,6 @@
 # E03 · Escritorio → Cobro, caja y cortes · Tareas
 
-Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E02-T014. La impresión (E12) y la terminal (E16) se usan con implementaciones provisionales.
+Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E02 y E12 terminados. La terminal integrada llega en E16; mientras, el pago con tarjeta se captura a mano como dice la spec.
 
 ## Bloque A · Dominio
 
@@ -26,6 +26,8 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E02-T01
   - Cumple: BR-CAJ-08 a 10.
 - [ ] **E03-T010** Anular cobro con *override* y reapertura de la orden. Depende de T007.
   - Cumple: BR-CAJ-11, AC-CAJ-13.
+- [ ] **E03-T010b** Cajón de dinero: pulso `ESC p` con `IPrintService` (E12), apertura al cobrar en efectivo o retirar, y `POST /api/cash/drawer/open` con motivo, permiso u *override* y auditoría. Depende de T007, T008 y E12-T004b.
+  - Cumple: BR-COC-13, AC-COC-11 y 12.
 - [ ] **E03-T011** PDF del corte (QuestPDF) + `CutDeliveryService` por correo con `IMessageDelivery` + configuración de envío. Depende de T009 y E00-T019b.
   - Cumple: BR-CAJ-13, AC-CAJ-12.
 - [ ] **E03-T012** WhatsApp en `IMessageDelivery` (plantilla aprobada) y envío del corte por ahí. Depende de T011 y de P-01.

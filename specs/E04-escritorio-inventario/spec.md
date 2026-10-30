@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E04 |
 | **Superficie** | Escritorio (MAUI en Windows y web) |
-| **Ola** | 1 · Operación |
+| **Fase** | 1 · Inventario · paso 3 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión. Preguntas P-01 a P-04 contestadas por Benji el 2026-10-30 |

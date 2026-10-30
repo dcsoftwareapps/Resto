@@ -21,7 +21,7 @@ public interface IManagerOverride   // E02, E03 y E07
     Task<Guid?> ConsumeAsync(string token, string permission, string entityType, Guid entityId, CancellationToken ct);
 }
 
-public interface ISecurityAlerts    // E00, E02, E03 y E04
+public interface ISecurityAlerts    // E02 y E03. Para E00 y E04, E09 escucha PinLockedOut y StockChanged con Shortfall
 {
     Task RaiseAsync(SecurityAlert alert, CancellationToken ct);
 }

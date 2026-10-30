@@ -1,6 +1,6 @@
 # E12 · Cocina → Pantalla e impresión · Tareas
 
-Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E02-T007. **T001 a T003 pueden empezar desde el principio**, porque no dependen de nada.
+Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E02 y E08 terminados.
 
 ## Bloque A · Impresión
 
@@ -9,10 +9,10 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E02-T00
   - Comparar contra `img/04`.
 - [ ] **E12-T003** [P] `NetworkPrinterTransport` y `WindowsUsbPrinterTransport`. Depende de T001.
 - [ ] **E12-T004** `print_jobs` + `IPrintService` (servidor) + `PrintJobRequested`. Depende de T002.
+- [ ] **E12-T004b** Impresoras: tabla `printers`, API, `PrinterFormDialog` con *Probar* y la sección de impresoras de *Configuración → Comandas e impresoras* (la pestaña es de E08). Depende de T003 y E08-T011.
+  - Comparar contra `E08 img/04` y `E08 img/06`. Cumple: BR-CFG-07, AC-CFG-08 y 09.
 - [ ] **E12-T005** `PrintQueueWorker` en la caja anfitriona con reintentos y aviso de falla. Depende de T003 y T004.
   - Cumple: BR-COC-10 y 11, AC-COC-07 y 08.
-- [ ] **E12-T005b** Cajón de dinero: pulso `ESC p` en `EscPosBuilder`, apertura al cobrar en efectivo o retirar, y `POST /api/cash/drawer/open` con motivo, permiso u *override* y auditoría. Depende de T005, E03-T007 y E08 (`HasCashDrawer`).
-  - Cumple: BR-COC-13, AC-COC-11 y 12.
 - [ ] **E12-T006** `LocalPrintService` sin conexión. Depende de T003 y E00-T022.
   - Cumple: AC-COC-09.
 

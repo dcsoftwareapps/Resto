@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E01 |
 | **Superficie** | Escritorio |
-| **Ola** | 1 · Operación |
+| **Fase** | 2 · Venta · paso 12 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

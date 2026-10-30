@@ -18,6 +18,4 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 (PIN, *pu
   - Cumple: BR-MES-06, AC-MES-08.
 - [ ] **E10-T008** Avisos "ya salió" (banner y *push*) solo para el mesero de la orden. Depende de E12.
   - Comparar contra `img/06`. Cumple: BR-MES-07, AC-MES-07.
-- [ ] **E10-T009** Tarjeta de pedidos del QR y *Confirmar*. Depende de E18.
-  - Comparar contra `img/07`. Cumple: BR-MES-08, AC-MES-09.
 - [ ] **E10-T010** Recorrido manual en un Android real (y en iOS si ya hay Mac) y contestar P-01 y P-02.

@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E21 |
 | **Superficie** | Plataforma (registro público, módulo del cliente y consola interna de Resto) |
-| **Ola** | 2 · Cobro y control |
+| **Fase** | 3 · Negocio · paso 18 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

@@ -1,6 +1,6 @@
 # E17 · Cliente → Menú QR · Tareas
 
-Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E05-T005 (menú con traducciones), E13 y E18-T002 (`IIncomingOrders`).
+Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E05, E10, E13 y E18 terminados.
 
 - [ ] **E17-T001** `table_qr_tokens` + regenerar + PDF de QR por mesa (`QRCoder` + QuestPDF).
   - Comparar contra `img/06`. Cumple: BR-QR-01, AC-QR-07.
@@ -11,8 +11,12 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E05-T005 (men
   - Incluye `AllergenBadges` con los alérgenos y calorías de E05 (BR-REC-13).
 - [ ] **E17-T005** Carrito y envío a `IIncomingOrders` con límites. Depende de T004.
   - Comparar contra `img/03`. Cumple: BR-QR-04 y 05, AC-QR-04.
+- [ ] **E17-T005b** Tarjeta de pedidos del QR y *Confirmar* en el celular del mesero (antes en E10; la pantalla es de E10). Depende de T005.
+  - Comparar contra `E10 img/07`. Cumple: BR-MES-08, AC-MES-09.
 - [ ] **E17-T006** Página de estado + pedir la cuenta. Depende de T005.
   - Comparar contra `img/04`. Cumple: BR-QR-06 y 07, AC-QR-05 y 06.
 - [ ] **E17-T007** Modo sin pedidos (canal en pausa o QR solo para ver). Depende de T002.
   - Comparar contra `img/05`. Cumple: AC-QR-08.
+- [ ] **E17-T007b** Página web de pedidos: carrito, *checkout*, zona, mínimo y estado del pedido (antes en E18; usa los mismos componentes del menú). Depende de T004 y E18-T002.
+  - Comparar contra `E18 img/03`. Cumple: BR-LIN-09, AC-LIN-07.
 - [ ] **E17-T008** Prueba de rendimiento en móvil, recorrido con QR impreso y contestar P-01 a P-03.

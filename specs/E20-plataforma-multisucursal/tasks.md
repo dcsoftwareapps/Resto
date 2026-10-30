@@ -1,6 +1,6 @@
 # E20 · Plataforma → Multisucursal · Tareas
 
-Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: toda la ola 1 y E15. **Si se contesta que sí a P-01, el Bloque B (almacenes) se adelanta a la ola 1.**
+Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: Fases 0 a 2 terminadas y E15. **P-01 se contesta antes de empezar E04:** si es sí, el Bloque B (almacenes) se pasa a E04 antes de arrancarlo.
 
 ## Bloque A · Sucursales y usuarios
 

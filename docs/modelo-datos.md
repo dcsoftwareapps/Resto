@@ -61,17 +61,16 @@ erDiagram
 
 | Dueño | Tablas |
 |---|---|
-| E00 Fundaciones | `organizations`, `restaurants`, `devices`, `device_pairing_codes`, `audit_entries`, `notifications`, `idempotency_keys`, `pin_attempts` |
-| E01 Órdenes abiertas | `dining_tables` |
+| E00 Fundaciones | `organizations`, `restaurants`, `devices`, `device_pairing_codes`, `audit_entries`, `notifications`, `idempotency_keys`, `pin_attempts`, `organization_modules` |
 | E02 Punto de venta | `orders`, `order_items`, `order_item_extras`, `order_events` |
 | E03 Cobro y cortes | `cash_sessions`, `payments`, `cash_movements`, `cash_cuts`, `cut_delivery_settings` |
 | E04 Inventario | `ingredients`, `ingredient_categories`, `inventory_movements`, `inventory_imports`, `stock_counts`, `stock_count_lines` |
 | E05 Recetas | `menu_categories`, `menu_items`, `recipe_lines`, `bundle_components`, `extras`, `extra_targets`, `menu_imports` |
 | E06 Compras | `suppliers`, `purchase_requests`, `purchase_orders` |
 | E07 Usuarios | `users`, `roles`, `role_permissions` (versión mínima creada en E00) |
-| E08 Configuración | `restaurant_settings`, `tax_rules`, `tax_rule_products`, `custom_field_definitions`, `kitchen_stations`, `printers` |
+| E08 Configuración | `restaurant_settings`, `tax_rules`, `tax_rule_products`, `custom_field_definitions`, `kitchen_stations`, `dining_tables` |
 | E09 Seguridad | `security_rules`, `security_alerts`, `override_tokens` |
-| E12 Cocina e impresión | `print_jobs` |
+| E12 Cocina e impresión | `print_jobs`, `printers` |
 | E13 Promociones | `promotions`, `promotion_targets`, `order_item_discounts` |
 | E14 Facturación | `invoice_settings`, `menu_category_fiscal_keys`, `invoices`, `invoice_orders`, `fiscal_customers` |
 | E15 Reportes | `daily_sales_summary`, `daily_item_summary` |

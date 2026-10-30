@@ -9,10 +9,23 @@
 | `tax_rule_products` | `TaxRuleId`, `MenuItemId` | |
 | `custom_field_definitions` | `Id`, `RestaurantId`, `Key` (slug inmutable), `Name`, `Type` (`Text`, `Number`, `Date`), `IsVisible`, `SortOrder` | |
 | `kitchen_stations` | `Id`, `RestaurantId`, `Name`, `PrinterId?`, `IsActive`, `SortOrder` | |
-| `printers` | `Id`, `RestaurantId`, `Name`, `Connection` (`Network`, `Usb`), `Host`, `Port`, `UsbName`, `UsbDeviceId` (dispositivo de E00), `PaperWidthMm`, `HasCashDrawer` | |
 | `ingredient_categories` | (definida en E04, se edita aquí) | |
 
 Zona horaria, día de operación y nombre viven en `restaurants` (E00) y se editan aquí.
+
+### `DiningTable` (`dining_tables`)
+
+| Propiedad | Tipo | Notas |
+|---|---|---|
+| `Id`, `OrganizationId`, `RestaurantId` | `Guid` | |
+| `Number` | `int` | Único por restaurante |
+| `Name` | `string?` | "Terraza 2" |
+| `Zone` | `string?` | "Salón", "Terraza" |
+| `Seats` | `int` | |
+| `IsActive` | `bool` | |
+| `QrToken` | `string?` | Lo llena E17 |
+
+El número de mesas que se edita en *Configuración → Restaurante* crea o desactiva filas aquí. E01 y E02 la leen.
 
 ## 2. Contratos que ofrece
 
@@ -51,7 +64,7 @@ public interface IPricingSettings      // E02, E03, E13, E14
 | `GET /api/settings/taxes/example` (BR-CFG-03) | `settings.manage` |
 | `PUT /api/settings/waste` `{ DefaultPercent }` · `PUT /api/inventory/ingredients/{id}/waste` `{ Percent? }` | `settings.manage` |
 | CRUD `/api/settings/custom-fields` | `settings.manage` |
-| CRUD `/api/settings/stations`, CRUD `/api/settings/printers`, `POST …/printers/{id}/test` | `settings.manage` |
+| CRUD `/api/settings/stations` (impresoras: E12-T004b) | `settings.manage` |
 | CRUD `/api/settings/ingredient-categories` | `settings.manage` |
 
 **Prueba de impresión:**
@@ -66,7 +79,7 @@ public interface IPricingSettings      // E02, E03, E13, E14
 | `TaxesTab.razor` + `TaxRuleCard.razor` + `TaxExample.razor` | 01 |
 | `WasteTab.razor` | 02 |
 | `CustomFieldsTab.razor` (con confirmación en la misma fila) | 03 |
-| `KitchenPrintingTab.razor` + `PrinterFormDialog.razor` | 04 |
+| `KitchenPrintingTab.razor` (estaciones; E12 agrega la sección de impresoras) | 04 |
 | `RestaurantTab.razor` | 05 |
 
 ## 5. Pruebas

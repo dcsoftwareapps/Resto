@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E13 |
 | **Superficie** | Escritorio (se aplica en caja, mesero, QR, kiosko y web) |
-| **Ola** | 2 · Cobro y control |
+| **Fase** | 3 · Negocio · paso 14 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

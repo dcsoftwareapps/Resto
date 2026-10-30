@@ -191,14 +191,10 @@ public interface IRestaurantSettings
     IReadOnlyList<CustomFieldDefinition> InventoryCustomFields { get; }
 }
 
-// La implementa E09. E04 la llama cuando hay Shortfall (BR-INV-01).
-public interface ISecurityAlerts
-{
-    Task RaiseAsync(SecurityAlert alert, CancellationToken ct);
-}
+// E04 no llama a E09: publica StockChanged con Shortfall y E09 lo escucha (BR-INV-01).
 ```
 
-- **Mientras E09 no exista**, `ISecurityAlerts` tiene una implementación provisional que solo escribe en auditoría.
+- E04 no depende de E09. La alerta por descontar de más la crea E09 cuando escucha `StockChanged` con `Shortfall`.
 - `IReorderQuery` devuelve la sugerencia en unidad base **y** en unidad de compra (si tiene), para que E06 y E11 muestren "3 cajas (150 pz)".
 
 ## 9. Pruebas

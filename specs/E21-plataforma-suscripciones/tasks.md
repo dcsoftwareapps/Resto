@@ -1,14 +1,11 @@
 # E21 · Plataforma → Suscripciones y planes · Tareas
 
-Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00, E07 y E08. La factura de la licencia necesita E14. **T003 y T004 conviene hacerlas temprano**, aunque el cobro llegue después, para que cada epic declare su módulo desde el principio.
+Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00, E07 y E08. La factura de la licencia necesita E14.. El candado por módulo (`IModuleGate`) ya existe desde E00; aquí solo se conecta con los planes.
 
 - [ ] **E21-T001** Esquema `platform` + `plans` con los 3 planes de la spec.
   - Cumple: P-04 por confirmar.
 - [ ] **E21-T002** [P] Precios y estados en Domain (sucursales, ciclo, prorrateo y transiciones).
   - Cumple: AC-SUS-03.
-- [ ] **E21-T003** `Modules`, `IModuleGate`, `.RequireModule()` y `<ModuleView>` + candado en `NavRail`. Depende de T001.
-  - Cumple: BR-SUS-05, AC-SUS-04.
-- [ ] **E21-T004** Prueba de que todos los endpoints declaran su módulo. Depende de T003.
 - [ ] **E21-T005** Filtro de solo lectura + `ReadOnlyBanner`. Depende de T001.
   - Cumple: AC-SUS-02.
 - [ ] **E21-T006** Registro público + creación de organización, sucursal, administrador, roles y configuración. Depende de T001.

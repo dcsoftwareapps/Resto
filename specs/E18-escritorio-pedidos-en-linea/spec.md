@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E18 |
 | **Superficie** | Escritorio (tablero) + página web de pedidos del restaurante |
-| **Ola** | 3 · Canales y sucursales |
+| **Fase** | 4 · Canales · paso 19 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

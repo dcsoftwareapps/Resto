@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E14 |
 | **Superficie** | Escritorio + portal web público para el cliente |
-| **Ola** | 2 · Cobro y control |
+| **Fase** | 3 · Negocio · paso 15 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir **+ contador** |
 | **Estado** | Borrador para revisión |

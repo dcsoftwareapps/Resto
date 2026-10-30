@@ -9,7 +9,7 @@ Este repositorio se construye con **spec driven development**: primero se escrib
 | Si quieres… | Abre |
 |---|---|
 | Entender las reglas del proyecto (stack, convenciones, qué nunca se hace) | [`docs/constitucion.md`](docs/constitucion.md) |
-| Ver todos los epics y en qué orden van | [`docs/epics.md`](docs/epics.md) |
+| Ver todos los epics y en qué orden van (un epic que se empieza se termina) | [`docs/epics.md`](docs/epics.md) |
 | Ver qué interfaces y eventos comparten los epics | [`docs/contratos.md`](docs/contratos.md) |
 | Ver todas las tablas y quién es dueño de cada una | [`docs/modelo-datos.md`](docs/modelo-datos.md) |
 | Saber dónde quedó cada cosa que se pidió (requisitos, Soft Restaurant, pendientes) | [`docs/trazabilidad.md`](docs/trazabilidad.md) |
@@ -50,7 +50,7 @@ Resto/
 - [x] Constitución, mapa de epics, contratos, modelo de datos y proceso
 - [x] Specs, planes y tareas de los 22 epics (E00 a E21), con capturas del demo
 - [ ] Reunión de reparto: escribir responsables en `docs/epics.md`
-- [ ] Contestar las preguntas abiertas que bloquean la ola 1 (ver abajo)
+- [ ] Contestar las preguntas abiertas que bloquean la Fase 0 (ver abajo)
 - [ ] E00 Fundaciones: solución .NET, base de datos, login, auditoría
 
 ## Preguntas que hay que contestar pronto

@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E15 |
 | **Superficie** | Escritorio y web (se puede ver desde el celular del dueño) |
-| **Ola** | 2 · Cobro y control |
+| **Fase** | 3 · Negocio · paso 17 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

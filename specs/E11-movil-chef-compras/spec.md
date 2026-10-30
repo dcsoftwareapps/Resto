@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E11 |
 | **Superficie** | Móvil (MAUI en Android y iOS) |
-| **Ola** | 1 · Operación |
+| **Fase** | 1 · Inventario · paso 6 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

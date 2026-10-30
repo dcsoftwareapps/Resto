@@ -19,5 +19,6 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E04-T01
   - Comparar contra `img/02` y `05`.
 - [ ] **E06-T009** `SuppliersTable` y `SupplierFormDialog`. Depende de T006.
   - Comparar contra `img/03` y `04`.
-- [ ] **E06-T010** Conectar el botón "A compras" de E04 (E04-T018) con `IPurchaseRequests`.
+- [ ] **E06-T010** Botón "A compras" y etiqueta "En la lista" en la lista de Inventario, conectados con `IPurchaseRequests` (la pantalla es de E04; el botón lo agrega este epic). Depende de T004 y E04-T015.
+  - Cumple: AC-INV-11.
 - [ ] **E06-T011** Recorrido manual de AC-COM-01 a 10 y contestar P-01 y P-02.

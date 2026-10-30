@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E16 |
 | **Superficie** | Plataforma (caja y kiosko) |
-| **Ola** | 2 · Cobro y control |
+| **Fase** | 3 · Negocio · paso 16 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

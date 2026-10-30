@@ -20,9 +20,8 @@ flowchart LR
   E03 -- IPaymentTerminal --> E16[E16 Pagos]
   E14[E14 Facturas] -- IPaidOrderQuery --> E03
   E04 -- IRestaurantSettings --> E08
-  E04 -- ISecurityAlerts --> E09
-  E04 -- IPurchaseRequests --> E06[E06 Compras]
-  E06 -- IInventoryReceiving · IReorderQuery --> E04
+  E09 -. escucha StockChanged .-> E04
+  E06[E06 Compras] -- IInventoryReceiving · IReorderQuery --> E04
   E11[E11 Móvil chef] -- IPurchaseRequests --> E06
   E17[E17 QR] -- IIncomingOrders --> E18[E18 En línea]
   E18 -- IOrderService --> E02
@@ -31,7 +30,7 @@ flowchart LR
   E21[E21 Suscripciones] -- IInvoicingService --> E14
 ```
 
-Todos dependen de E00 (`ICurrentUser`, `IAuditLog`, `INotificationService`, `IMessageDelivery`, `RestaurantHub` y permisos) y de E21 (`IModuleGate`), así que no se dibujan.
+Todos dependen de E00 (`ICurrentUser`, `IAuditLog`, `INotificationService`, `IMessageDelivery`, `RestaurantHub` y permisos) y `IModuleGate`, que también es de E00, así que no se dibujan.
 
 ## Interfaces
 
@@ -52,20 +51,20 @@ Todos dependen de E00 (`ICurrentUser`, `IAuditLog`, `INotificationService`, `IMe
 | `IReorderQuery` | E04 | E06, E11 | Insumos bajo el mínimo con su sugerido |
 | `IMenuCatalog` | E05 | E02, E10, E13, E17, E19 | Platillos, precios, categorías, extras, porciones disponibles |
 | `IRecipeResolver` | E05 | E02 | Convierte platillo + extras + paquete en líneas de insumo |
-| `IPurchaseRequests` | E06 | E04, E11 | Agregar a la lista de compras |
+| `IPurchaseRequests` | E06 | E11 | Agregar a la lista de compras |
 | `IOrderService` | E02 | E10, E18, E19 | Abrir orden, agregar, enviar, cancelar |
 | `IOrderQuery` | E02 | E01, E03, E12 | Órdenes abiertas y su detalle |
 | `IPaidOrderQuery` | E03 | E14, E15 | Tickets pagados con su desglose |
 | `ICashSessionService` | E03 | E16 | Turno de caja abierto para registrar pagos |
 | `IPrintService` | E12 | E02, E03, E14 | Imprimir comanda, cuenta, ticket y corte |
 | `IManagerOverride` | E09 | E02, E03, E07 | Validar el PIN de quien autoriza, con su permiso |
-| `ISecurityAlerts` | E09 | E02, E03, E04 | Levantar una alerta |
+| `ISecurityAlerts` | E09 | E02, E03 (E00 y E04 solo publican eventos que E09 escucha) | Levantar una alerta |
 | `IPromotionEngine` | E13 | E02 | Calcular los descuentos automáticos de una cuenta |
 | `IInvoicingService` | E14 | E03, E17 | Facturar un ticket o hacer la factura global |
 | `IPaymentTerminal` | E16 | E03, E19 | Cobrar con terminal y obtener la autorización |
 | `IIncomingOrders` | E18 | E17 | Registrar un pedido externo (QR, web o app) por aceptar |
 | `ISecurityRules` | E09 | E02, E03 | Umbrales de alertas y reimpresiones |
-| `IModuleGate` | E21 | Todos (vía `.RequireModule()`) | Saber si el plan del cliente incluye un módulo |
+| `IModuleGate` | E00 (E21 escribe los módulos según el plan) | Todos (vía `.RequireModule()`) | Saber si el plan del cliente incluye un módulo |
 
 **Regla para avanzar en paralelo:** si un epic necesita una interfaz que todavía no existe, la usa a través de una **implementación provisional** (`Default…` o `Null…`) que vive en el proyecto del dueño. Cuando el dueño entrega la real, se reemplaza en el registro de dependencias y nada más cambia.
 

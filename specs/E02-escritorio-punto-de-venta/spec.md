@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E02 |
 | **Superficie** | Escritorio (caja) |
-| **Ola** | 1 · Operación |
+| **Fase** | 2 · Venta · paso 9 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

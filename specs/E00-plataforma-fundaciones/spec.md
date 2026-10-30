@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E00 |
 | **Superficie** | Plataforma (servidor, app y web) |
-| **Ola** | 1 · Operación. **Va antes que todo.** |
+| **Fase** | 0 · Base · paso 1 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

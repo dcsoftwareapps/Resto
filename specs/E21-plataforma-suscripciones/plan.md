@@ -35,6 +35,7 @@ Se agrega el proyecto `Resto.Admin` (Blazor Web App, solo para el equipo) con su
 ## 4. Contratos
 
 ```csharp
+// IModuleGate es de E00 (lee organization_modules). E21 actualiza organization_modules al cambiar de plan, iniciar una prueba o suspender.
 public interface IModuleGate { bool IsEnabled(Guid organizationId, Modules module); }
 
 public interface ISubscriptionProcessor   // un adaptador por procesador

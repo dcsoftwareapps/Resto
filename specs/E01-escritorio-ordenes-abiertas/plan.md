@@ -2,23 +2,11 @@
 
 ## 1. Resumen
 
-Pantalla de **solo lectura** que arma su vista con `IOrderQuery` (E02), las mesas de E08 y el resumen de caja de E03. No tiene tablas propias salvo `dining_tables`, que crea este epic porque E02, E08 y E10 la usan.
+Pantalla de **solo lectura** que arma su vista con `IOrderQuery` (E02), las mesas de E08 y el resumen de caja de E03. No tiene tablas propias: las mesas (`dining_tables`) son de E08.
 
 ## 2. Modelo de datos
 
-### `DiningTable` (`dining_tables`)
-
-| Propiedad | Tipo | Notas |
-|---|---|---|
-| `Id`, `OrganizationId`, `RestaurantId` | `Guid` | |
-| `Number` | `int` | Único por restaurante |
-| `Name` | `string?` | "Terraza 2" |
-| `Zone` | `string?` | "Salón", "Terraza" |
-| `Seats` | `int` | |
-| `IsActive` | `bool` | |
-| `QrToken` | `string?` | Lo llena E17 |
-
-El número de mesas que se edita en E08 crea o desactiva filas aquí.
+Usa `dining_tables`, que es de E08 (mesas con número, nombre, zona y lugares). Este epic no tiene tablas propias.
 
 ## 3. API
 

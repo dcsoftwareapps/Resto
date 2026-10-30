@@ -56,7 +56,7 @@ tests/
 1. **Dinero y cantidades en `decimal`.** Dinero con 2 decimales y cantidades de inventario con 3. En PostgreSQL: `numeric(12,2)` y `numeric(12,3)`. Redondeo `MidpointRounding.AwayFromZero`.
 2. **Multi restaurante.** Toda entidad de negocio tiene `OrganizationId` (el cliente que paga) y `RestaurantId` (la sucursal), y EF Core aplica un filtro global por el restaurante del usuario. Nunca se consulta sin ese filtro. Ver [`modelo-datos.md`](modelo-datos.md).
 3. **Auditoría.** Toda escritura pasa por un servicio que registra `AuditEntry` con usuario, fecha UTC, módulo, acción, valores antes y después. La auditoría no se edita ni se borra.
-4. **Permisos y plan en el servidor.** Cada endpoint declara su permiso (`.RequirePermission(Permissions.InventoryAdjust)`) y su módulo (`.RequireModule(Modules.Inventory)`, E21). La UI esconde lo que no puedes usar, pero eso no sustituye la validación.
+4. **Permisos y plan en el servidor.** Cada endpoint declara su permiso (`.RequirePermission(Permissions.InventoryAdjust)`) y su módulo (`.RequireModule(Modules.Inventory)`, E00; E21 decide qué módulos tiene cada plan). La UI esconde lo que no puedes usar, pero eso no sustituye la validación.
 5. **Fechas.** Se guardan en UTC. Se muestran en la zona del restaurante (por defecto `America/Tijuana`).
 6. **Sin borrado físico** de datos de negocio. Se desactiva (`IsActive = false`) para no romper historial ni recetas.
 7. **Concurrencia.** Las existencias se modifican con operaciones atómicas o `RowVersion`. Nunca "leo, sumo en memoria y guardo".

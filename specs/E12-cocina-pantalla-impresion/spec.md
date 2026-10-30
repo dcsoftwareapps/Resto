@@ -4,7 +4,7 @@
 |---|---|
 | **Epic** | E12 |
 | **Superficie** | Cocina (tablet o TV con la app MAUI en Android o con navegador) e impresoras |
-| **Ola** | 1 · Operación |
+| **Fase** | 2 · Venta · paso 10 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |

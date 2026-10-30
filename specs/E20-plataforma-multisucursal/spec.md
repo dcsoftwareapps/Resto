@@ -4,11 +4,11 @@
 |---|---|
 | **Epic** | E20 |
 | **Superficie** | Plataforma + escritorio (vista de organización) |
-| **Ola** | 3 · Canales y sucursales |
+| **Fase** | 4 · Canales · paso 22 de 22 en el [orden de construcción](../../docs/epics.md) |
 | **Responsable** | Por definir |
 | **Revisa** | Por definir |
 | **Estado** | Borrador para revisión |
-| **Depende de** | Toda la ola 1, más E15 (reportes) |
+| **Depende de** | Fases 0 a 2 terminadas, más E15 (reportes) |
 | **Lo usan** | E21 (cobro por sucursal) |
 | **Diseño** | Filtro por almacén del demo y capturas de maqueta en [`img/`](img/) |
 
@@ -108,5 +108,5 @@ En *Usuarios*, cada persona puede tener **un rol distinto por sucursal** (gerent
 
 | ID | Pregunta | Contesta | Estado |
 |---|---|---|---|
-| P-01 | ¿Los **almacenes** (sección 3.4) los necesita también un restaurante de una sola sucursal desde antes de este epic? Si sí, conviene adelantarlos. | Equipo | Abierta |
+| P-01 | ¿Los **almacenes** (sección 3.4) los necesita también un restaurante de una sola sucursal desde antes de este epic? Si sí, sus tareas (Bloque B) se pasan a E04 **antes de empezar E04**, para no partir ningún epic. Hay que contestarla antes de la Fase 1. | Equipo | Abierta |
 | P-02 | ¿Un **comisariato** (cocina central que surte a las sucursales)? | Equipo | Abierta |
