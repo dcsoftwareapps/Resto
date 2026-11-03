@@ -44,7 +44,7 @@ public interface ISecurityRules     // E02 y E03
 | `GET/PUT /api/security/rules` | `security.manage` |
 | `GET /api/audit?q=&module=&userId=&from=&to=&page=` · `GET /api/audit/{id}` · `GET /api/audit/export?…` | `audit.view` |
 
-**Tiempo real:** `SecurityAlertRaised` al grupo `role:` de quienes tienen `security.manage`. El contador del menú se actualiza solo.
+**Tiempo real:** `SecurityAlertRaised` al grupo `restaurant:{restaurantId}:role:{roleKey}` de quienes tienen `security.manage`. El contador del menú se actualiza solo.
 
 ## 4. Pantallas
 

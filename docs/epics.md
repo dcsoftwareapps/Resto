@@ -8,6 +8,8 @@ Cada epic es una **superficie → módulo** que una persona puede llevar de prin
 
 **Regla de oro: un epic que se empieza se termina.** No se deja nada a medias ni con implementaciones provisionales. Por eso el orden sigue las dependencias reales entre tareas: cuando un epic arranca, todo lo que necesita ya está terminado. Las tareas que antes cruzaban epics se movieron al epic que llega después (por ejemplo, el botón "A compras" de Inventario ahora lo hace E06, y las impresoras pasaron de E08 a E12).
 
+El cierre se evalúa sobre las capacidades propias y los contratos reales del epic; las integraciones posteriores se implementan y verifican en su dueño según [el proceso](proceso.md#cierre-e-integración-entre-epics). No se acredita un AC completo con una prueba de contrato. La ruta a Inventario sigue siendo **E00 completo → E08 completo → E04**, sin adelantar E20: P-01 resuelta el 2026-11-02, existencias por restaurante y Almacén como propiedad/filtro hasta la migración de E20.
+
 La columna **#** es el orden de construcción y **Fase** agrupa lo que se entrega junto. La hoja de ruta con el porqué está en el documento *Resto · Hoja de ruta*.
 
 - **Fase 0 · Base:** E00 completo.

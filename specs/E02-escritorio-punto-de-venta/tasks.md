@@ -2,7 +2,7 @@
 
 Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede hacer en paralelo.
 
-**Requisitos previos:** E00, E04, E05, E08 y E09 terminados. Las promociones (E13) llegan después por `IPromotionEngine`, que E02 define con una implementación que no aplica promociones.
+**Requisitos previos:** E00, E04, E05, E08 y E09 terminados. Las promociones se integran en E13-T003 con el motor real; E02 termina su cálculo y contrato de entrada de descuentos, sin registrar un motor no-op.
 
 ## Bloque A · Dominio
 
@@ -18,6 +18,8 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 - [ ] **E02-T005** Configuración EF + migración `AddOrders` (incluye el índice único parcial por mesa abierta) + seed con las 4 órdenes abiertas del demo. Depende de T004.
 - [ ] **E02-T006** Endpoints de abrir, agregar, quitar, editar y consultar, con `[OfflineCapable]` donde aplica. Depende de T005.
   - Cumple: BR-POS-15, AC-POS-01 a 04 y 17.
+- [ ] **E02-T006b** Integrar la salvaguarda real al reducir mesas en Configuración (E08-T008): rechazar si una mesa a desactivar tiene orden abierta, usando `IOrderQuery`, sin consultas directas entre epics. Depende de T006, T014 y E08-T008.
+  - Cumple: E08 AC-CFG-10, incluido el mensaje de Mesa 12 ocupada.
 - [ ] **E02-T007** Enviar a cocina: `IRecipeResolver` → `IInventoryConsumption` → `OrderSentToKitchen` → `IPrintService`. Si inventario falla, la comanda sale igual. Depende de T006.
   - Cumple: BR-POS-04, AC-POS-05.
 - [ ] **E02-T008** Disponibilidad desde `IMenuCatalog` en la consulta del menú. Depende de T006.
@@ -45,7 +47,7 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 - [ ] **E02-T016** `TicketPanel`, `TicketLine` y `PriceBreakdownView`. Depende de T015.
   - Comparar contra `img/01` y `06`.
 - [ ] **E02-T016b** Ejemplo en vivo de la cuenta en *Configuración → Impuestos* (la pestaña es de E08) calculado con `OrderPricing`. Depende de T001 y E08-T009.
-  - Comparar contra `E08 img/01`. Cumple: BR-CFG-02.
+  - Comparar contra `E08 img/01`. Cumple: BR-CFG-02/03, AC-CFG-01/02; incluye API del ejemplo real y recálculo al cambiar impuestos, con productos de E05-T006b.
 - [ ] **E02-T017** `OrderHistory`. Depende de T016.
   - Comparar contra `img/02`.
 - [ ] **E02-T018** `NewOrderDialog` con los 3 canales. Depende de T015.
@@ -60,5 +62,5 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 
 ## Bloque D · Cierre
 
-- [ ] **E02-T023** Recorrido manual de AC-POS-01 a 20, incluido sin conexión (abrir, agregar y enviar).
+- [ ] **E02-T023** Recorrido manual de AC-POS-01 a 20, incluido sin conexión (abrir, agregar y enviar). Verificar E00 AC-PLT-09/10/11/15 sobre órdenes reales y AC-PLT-17 restaurando órdenes, y E04 AC-INV-08 a 10/23 en envío y cancelación reales. La impresión desde el dispositivo se completa en E12-T006/T011 y E10-T006/T010.
 - [ ] **E02-T024** Contestar P-01 a P-03. **P-01 es fiscal:** confirmarla con el contador antes de facturar (E14).

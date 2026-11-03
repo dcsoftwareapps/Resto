@@ -7,7 +7,7 @@
 
 `[P]` = se puede hacer en paralelo con otras `[P]` del mismo bloque.
 
-**Requisito previo de E00:** solución creada, `RestaurantId` con filtro global, `IAuditLog`, permisos y `RestaurantHub`.
+**Requisitos previos:** E00 y E08 completos según sus fronteras de aceptación. E20 P-01 resuelta el 2026-11-02: existencias por restaurante; Almacén sigue como propiedad/filtro, sin trasladar E20-T005/T006/T007.
 
 ## Bloque A · Dominio (sin base de datos)
 
@@ -30,6 +30,8 @@
 
 - [ ] **E04-T007** Configuración EF de `Ingredient`, `InventoryMovement`, `IngredientCategory` e `InventoryImport` + migración `AddInventory` + datos semilla de categorías. Depende de T006.
   - Índice único por `NormalizedName`, check `stock >= 0` y `jsonb` para `CustomFields`.
+- [ ] **E04-T007b** CRUD de categorías y editor real en Configuración → Restaurante (antes en E08-T008). Depende de T007 y E08-T011.
+  - Conserva la propiedad de la entidad/seed en E04; API `/api/settings/ingredient-categories` con `settings.manage`, auditoría y pruebas.
 - [ ] **E04-T008** `InventoryService.AdjustAsync` con bloqueo `FOR UPDATE`, auditoría, y evento `StockChanged` con `Shortfall` cuando se descuenta más de lo que hay. Depende de T007.
   - Cumple: AC-INV-05 (el aviso; la alerta de seguridad la crea E09 al escuchar el evento).
   - Prueba de concurrencia: AC-INV-14 (dos ajustes en paralelo).
@@ -38,6 +40,8 @@
   - Cumple: BR-INV-06, AC-INV-01, 02, 03 y 12 (403 para Mesero).
 - [ ] **E04-T010** Endpoints POST y PUT de alta, edición, desactivar, ajuste y ajuste rápido. Depende de T008.
   - Cumple: AC-INV-04, 06, 07 (409 por duplicado) y 13 (403 para Compras al ajustar).
+- [ ] **E04-T010b** Integrar Configuración con ingredientes reales: API/tabla de merma propia en la pestaña Merma y valores de propiedades, incluida su eliminación al quitar la definición (antes en E08-T005/T006/T010). Depende de T010 y E08-T010.
+  - Cumple: BR-CFG-04/05, AC-CFG-04 a 06; valida 0–60% o vacío, solo movimientos nuevos, ocultar conserva valores, confirmación y auditoría. Ver plan §11; probar la implementación real.
 - [ ] **E04-T011** `IInventoryConsumption`: consumir y devolver, con bloqueo ordenado por `Id`. Depende de T008.
   - Cumple: AC-INV-08 y 09, BR-INV-13. Esto es contrato con E02: **avisar al responsable de E02 al terminar**.
 - [ ] **E04-T012** Aviso `IngredientBelowMinimum` solo al cruzar el mínimo. Depende de T008.
@@ -51,7 +55,7 @@
 
 ## Bloque C · Pantallas
 
-- [ ] **E04-T014** [P] Pasar los estilos del demo a `components.css`: tabla, indicadores, chips, barra de nivel y modal. Puede hacerse en cuanto exista E00.
+- [ ] **E04-T014** [P] Pasar los estilos del demo a `components.css`: tabla, indicadores, chips, barra de nivel y modal. Se realiza después del cierre de E00 y E08, sin duplicar los estilos base de E00-T003.
   - Comparar contra `img/01`.
 - [ ] **E04-T015** `InventoryPage`, `InventorySummaryCards`, `InventoryFilters` e `IngredientTable` con los estados cargando, vacío, sin resultados y error. Depende de T009 y T014.
   - Comparar contra `img/01`, `02` y `03`.
@@ -73,5 +77,5 @@
 
 ## Bloque D · Cierre
 
-- [ ] **E04-T022** Recorrido manual de AC-INV-01 a 25 (AC-INV-11 se prueba al terminar E06) en Windows (MAUI) y web, en modo claro y oscuro. Anotar aquí lo que falle.
+- [ ] **E04-T022** Recorrido de AC-INV-01 a 25 en Windows (MAUI) y web, claro y oscuro, separando lo propio, contrato y extremo a extremo pendiente según spec §6.1; incluir E08 AC-CFG-04 a 06 y categorías (T007b/T010b). Registrar fallas y evidencia; no acreditar escenarios posteriores con pruebas de contrato.
 - [x] **E04-T023** Contestar las preguntas abiertas P-01 a P-04 de la spec. (Benji, 2026-10-30: todas sí)

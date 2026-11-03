@@ -43,3 +43,9 @@ Tips:
 ## Tablero
 
 En `tasks.md`, cada tarea tiene casilla, dueño y estado. Si quieren algo más visual, cada tarea se puede copiar como issue de GitHub con el ID en el título (`E04-T007 Ajustar existencia`).
+
+## Cierre e integración entre epics
+
+Un epic se termina antes de empezar el siguiente: implementa y verifica toda su capacidad propia. Una integración que necesita una capacidad posterior pertenece al epic que introduce esa capacidad, con tarea y criterios de aceptación identificados. No se crean servicios provisionales, falsos ni operaciones vacías en producción para cerrar el epic anterior.
+
+En la evidencia de cada AC se distingue: **implementación propia**, **verificación de contrato** sobre la implementación real disponible y **verificación de extremo a extremo pendiente** con su epic/tarea dueño. Probar un contrato no acredita el escenario completo. Mover una responsabilidad no completa una tarea ni un requisito; las integraciones pendientes conservan sus BR/AC originales y sus casillas sin marcar. Las matrices de las specs E00, E08 y E04 delimitan su cierre sin eliminar requisitos.

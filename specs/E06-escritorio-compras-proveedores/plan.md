@@ -46,7 +46,7 @@ public interface IPurchaseRequests    // lo usan E04 y E11
 | `GET /api/purchasing/orders/draft` · `POST /api/purchasing/orders` `{ SupplierId }` · `POST …/orders/{id}/send` · `POST …/orders/{id}/receive` `{ Lines[] }` | `purchasing.buy` |
 | CRUD `/api/purchasing/suppliers` | `purchasing.suppliers` |
 
-**Tiempo real:** `PurchaseRequestChanged` al grupo `role:compras` y al usuario que pidió.
+**Tiempo real:** `PurchaseRequestChanged` al grupo `restaurant:{restaurantId}:role:compras` y al usuario que pidió.
 
 ## 5. Pantallas (`Resto.UI/Features/Purchasing/`)
 

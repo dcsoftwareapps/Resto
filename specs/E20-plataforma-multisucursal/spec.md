@@ -18,7 +18,7 @@ Cuando un cliente abre su segunda sucursal, quiere el mismo menú en las dos (co
 
 **Lo que queremos:** que una **organización** tenga varias sucursales, cada una operando de forma independiente, con catálogos compartidos, usuarios que pueden estar en varias, almacenes con traspasos y reportes consolidados.
 
-> E00 ya modela `Organization → Restaurant` desde el día uno, así que este epic **no** requiere migrar datos. Solo agrega funciones.
+> E00 ya modela `Organization → Restaurant` desde el día uno. E20 conserva esa jerarquía, pero sí aplica las migraciones de almacenes y roles de su plan. La migración desde Almacén como propiedad de E04 fue aceptada el 2026-11-02.
 
 ## 2. Quién lo usa
 
@@ -108,5 +108,5 @@ En *Usuarios*, cada persona puede tener **un rol distinto por sucursal** (gerent
 
 | ID | Pregunta | Contesta | Estado |
 |---|---|---|---|
-| P-01 | ¿Los **almacenes** (sección 3.4) los necesita también un restaurante de una sola sucursal desde antes de este epic? Si sí, sus tareas (Bloque B) se pasan a E04 **antes de empezar E04**, para no partir ningún epic. Hay que contestarla antes de la Fase 1. | Equipo | Abierta |
+| P-01 | ¿Los **almacenes** (sección 3.4) los necesita también un restaurante de una sola sucursal desde antes de este epic? Si sí, sus tareas (Bloque B) se pasan a E04 **antes de empezar E04**, para no partir ningún epic. Hay que contestarla antes de la Fase 1. | Daniel y Benji (dirección aprobada, 2026-11-02) | **Resuelta: no se adelanta.** E04 mantiene existencias por restaurante y Almacén como propiedad/filtro. StorageLocation, balances independientes y todo el Bloque B siguen en E20; se acepta su migración posterior. Ninguna tarea de almacenes queda completada por esta decisión. |
 | P-02 | ¿Un **comisariato** (cocina central que surte a las sucursales)? | Equipo | Abierta |

@@ -128,6 +128,23 @@ Pestañas: *Impuestos*, *Merma*, *Propiedades del inventario*, *Comandas e impre
 | AC-CFG-09 | las dos opciones de comandas | intento apagarlas ambas | aparece el aviso y no se guarda |
 | AC-CFG-10 | 12 mesas con la Mesa 12 ocupada | cambio a 10 mesas | "La Mesa 12 tiene una orden abierta" y no se guarda |
 
+### 6.1 Frontera de implementación y aceptación
+
+E08 termina sus datos, validaciones, APIs y pantallas de configuración propias. Las siguientes integraciones se implementan en el dueño de la capacidad dependiente, sin servicios provisionales ni pantallas que simulen datos inexistentes. Los BR/AC anteriores no cambian ni se dan por aprobados al trasladar su implementación.
+
+| BR / AC | Implementación y verificación propias de E08 | Integración real y extremo a extremo pendientes |
+|---|---|---|
+| BR-CFG-01 a 03; AC-CFG-01 a 03 | Impuestos, alcance, tasas, switch, auditoría y contrato IPricingSettings; AC-03 completo | E05-T006b: selección de productos y tax_rule_products; E02-T016b: ejemplo con OrderPricing y recálculo de cuentas (AC-01/02); E03-T018: congelación al cobrar |
+| BR-CFG-04; AC-CFG-04/05 | Merma general persistida, límites y auditoría; contrato IRestaurantSettings | E04-T010b: merma propia y tabla por insumo (AC-05), aplicación a movimientos nuevos (AC-04); E02-T023: venta real |
+| BR-CFG-05; AC-CFG-06 | Definiciones, tipo inmutable, visibilidad, confirmación y auditoría; sin escribir tablas de E04 | E04-T010b: valores, ocultación y eliminación efectiva con sus definiciones (AC-06) |
+| BR-CFG-06; AC-CFG-07 | Estaciones y garantía de al menos una activa | E05-T006b: consulta real de asignaciones, rechazo de desactivación y mensaje (AC-07) |
+| BR-CFG-07; AC-CFG-08 | La superficie de Configuración es de E08; no crea impresoras ni simula pruebas | E12-T004b/T011: tabla, seed, asignación, API, formulario y prueba física |
+| BR-CFG-08; AC-CFG-09 | Validación y persistencia de los dos switches; AC-09 completo | E12-T004b/T011 verifica su aplicación con impresión/pantalla reales |
+| AC-CFG-10 | Mesas y cambio de cantidad | E02-T006b: salvaguarda con órdenes abiertas y AC-10 completo |
+| Categorías (§3.5) | E08 aporta la pantalla Restaurante | E04-T007/T007b: entidad, seed, API y editor real dentro de esa pantalla |
+
+E08-T012 verifica lo propio y los contratos reales, y registra cada escenario posterior como **pendiente**, con las tareas anteriores. No implementa selectores, tablas de insumos, ejemplos de cobro ni impresoras ficticios para cerrar. E04 se inicia solo tras ese cierre de E08.
+
 ## 7. Fuera de alcance
 
 - Datos fiscales y PAC (E14). Promociones (E13). Dispositivos (E00).

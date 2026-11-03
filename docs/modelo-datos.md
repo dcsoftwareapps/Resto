@@ -103,3 +103,9 @@ No viajan al servidor tal cual: se envían como comandos por la cola de E00.
 | `restaurant_settings` | `PrintHostDeviceId` | E12 |
 | `devices` | `CashSessionRegisterId` | E19 |
 | `menu_items` | `Scope` | E20 |
+
+## Secuencia de creación e integración
+
+Las categorías de insumos siguen siendo de E04: entidad/seed en E04-T007 y editor/API en Configuración en E04-T007b. E08 no crea ni consulta ingredientes antes de E04. tax_rule_products conserva dueño E08, pero su migración e integración con productos reales se incorpora en E05-T006b. Las referencias a impresoras de restaurant_settings y kitchen_stations se agregan con las impresoras reales en E12-T004b.
+
+Decisión E20 P-01 (2026-11-02): E04 mantiene Ingredient.Stock por restaurante y Almacén como propiedad/filtro. storage_locations, ingredient_stocks y traspasos siguen en E20, incluida la migración de la propiedad de texto descrita en su plan.

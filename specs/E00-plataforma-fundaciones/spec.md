@@ -141,6 +141,24 @@ Se usa el tema del sistema por defecto. La elección de cada usuario se guarda e
 | AC-PLT-18 | 20 intentos de login fallidos desde la misma IP en un minuto | llega el intento 21 | responde 429 "Demasiados intentos, espera un minuto" |
 | AC-PLT-19 | un cliente pide borrar sus datos | el gerente lo hace desde E14 o E18 | su nombre, teléfono y correo se reemplazan por "Eliminado" y las ventas y facturas se conservan (obligación fiscal) |
 
+### 6.1 Responsabilidad y verificación de criterios cruzados
+
+Los AC anteriores siguen siendo requisitos completos del producto. E00-T025 cierra solo las capacidades propias terminadas y registra los demás como pendientes de integración, según docs/proceso.md.
+
+| AC | Implementación propia y contrato verificable en E00 | Extremo a extremo pendiente (dueño) |
+|---|---|---|
+| AC-PLT-04 | Login PIN real, identidad/permisos y selección de superficie | Mis mesas: E10-T003/T010 |
+| AC-PLT-05 | Bloqueo, PinLockedOut y aviso real al gerente | Alerta de Seguridad: E09-T003/T010 |
+| AC-PLT-07, 08, 14 | Aislamiento/auditoría sobre entidades propias y protección del shell; pruebas reutilizables para entidades futuras | Inventario: E04-T007/T009/T010/T021/T022 |
+| AC-PLT-09 a 11 | Outbox SQLite, orden/reintentos, idempotencia y asignación de folios; pruebas del contrato sin un POS ficticio | Orden/sincronización: E02-T006/T023; impresión local: E12-T006/T011; envío móvil: E10-T006/T010 |
+| AC-PLT-12 | Conectividad y control común de acciones que requieren internet | Facturación: E14-T007/T014 |
+| AC-PLT-15 | Cálculo de día operativo con reloj controlado | Aplicación a órdenes: E02-T023 |
+| AC-PLT-16 | Reconexión y recarga del estado propio; contrato Resynced | Cada pantalla al incorporarse; Inventario: E04-T020/T022 |
+| AC-PLT-17 | Restauración real de datos propios y bitácora | Restauración con órdenes: E02-T023 |
+| AC-PLT-19 | Contrato IPersonalDataEraser y enlaces legales; sin borrador de datos ficticio | Datos fiscales: E14-T012b; pedidos: E18-T010b |
+
+AC-PLT-01 a 03, 06, 13 y 18 se verifican completamente en E00. La auditoría se verifica sobre todas las escrituras propias; cada epic posterior extiende la cobertura. El monitoreo de §3.6 conserva correo **y WhatsApp**: ambos transportes son de E00-T019b; E03-T012 solo añade el corte. La decisión de proveedor de E03 P-01 se necesita antes de T019b; esta reconciliación no elige proveedor.
+
 ## 7. Fuera de alcance
 
 - Gestión de usuarios, roles y matriz de permisos (E07). E00 solo **valida** permisos.

@@ -6,7 +6,7 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E04-T01
   - Cumple: BR-COM-04, 05, 07 y 08, AC-COM-06.
 - [ ] **E06-T002** Tablas + migración `AddPurchasing` (incluye la FK `ingredients.SupplierId`) + seed con los 10 proveedores del demo. Depende de T001.
 - [ ] **E06-T003** `IPurchaseRequests` con avisos (uno por lote) y `PurchaseRequestChanged`. Depende de T002.
-  - Cumple: BR-COM-10, BR-COM-01 a 06, AC-COM-01 a 05.
+  - Cumple: BR-COM-10, BR-COM-01 a 06, AC-COM-01 a 05; verificar recepción real de E04 AC-INV-19.
 - [ ] **E06-T004** Endpoints de sugeridos y solicitudes. Depende de T003.
   - Cumple: AC-COM-10.
 - [ ] **E06-T005** Órdenes de compra: armar, enviar (`IMessageDelivery`) y recibir. Depende de T003.
@@ -20,5 +20,5 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E04-T01
 - [ ] **E06-T009** `SuppliersTable` y `SupplierFormDialog`. Depende de T006.
   - Comparar contra `img/03` y `04`.
 - [ ] **E06-T010** Botón "A compras" y etiqueta "En la lista" en la lista de Inventario, conectados con `IPurchaseRequests` (la pantalla es de E04; el botón lo agrega este epic). Depende de T004 y E04-T015.
-  - Cumple: AC-INV-11.
-- [ ] **E06-T011** Recorrido manual de AC-COM-01 a 10 y contestar P-01 y P-02.
+  - Cumple: AC-INV-11, parte de compras de AC-INV-02/18; integrar también el selector/proveedor real de Inventario con T002/T006, sin catálogo ficticio anterior.
+- [ ] **E06-T011** Recorrido manual de AC-COM-01 a 10 y E04 AC-INV-11/18/19 y compras intercaladas de AC-INV-23; contestar P-01 y P-02.
