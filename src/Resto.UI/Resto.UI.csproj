@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Resto.Contracts\Resto.Contracts.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+</Project>
