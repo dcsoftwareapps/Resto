@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('../fonts/InstrumentSans.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('../fonts/SchibstedGrotesk.ttf') format('truetype');
+  font-weight: 600 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../fonts/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../fonts/IBMPlexMono-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-ui);font-size:.875rem;line-height:1.45;margin:0;font-variant-numeric:tabular-nums}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:1.5rem;font-weight:700}
+h2{font-size:1.125rem;font-weight:700}
+h3{font-size:.9375rem;font-weight:700}
+p{margin:0}
+.ic{flex:none;display:block}
+.muted{color:var(--muted)}
+.sm{font-size:.78125rem}
+.row{display:flex;align-items:center;gap:8px}
+.wrap{flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px}
+.right{margin-left:auto}
