@@ -1,0 +1,17 @@
+{
+  "solution": {
+    "path": "Resto.sln",
+    "projects": [
+      "src\\Resto.Api\\Resto.Api.csproj",
+      "src\\Resto.Contracts\\Resto.Contracts.csproj",
+      "src\\Resto.Domain\\Resto.Domain.csproj",
+      "src\\Resto.Infrastructure\\Resto.Infrastructure.csproj",
+      "src\\Resto.Printing\\Resto.Printing.csproj",
+      "src\\Resto.UI\\Resto.UI.csproj",
+      "src\\Resto.Web\\Resto.Web.csproj",
+      "tests\\Resto.Api.Tests\\Resto.Api.Tests.csproj",
+      "tests\\Resto.Domain.Tests\\Resto.Domain.Tests.csproj",
+      "tests\\Resto.UI.Tests\\Resto.UI.Tests.csproj"
+    ]
+  }
+}

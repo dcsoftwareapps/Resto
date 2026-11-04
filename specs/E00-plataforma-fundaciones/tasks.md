@@ -6,7 +6,7 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 
 ## Bloque A · Solución
 
-- [ ] **E00-T001** Crear la solución con la plantilla *MAUI Blazor Hybrid and Web App* + Domain, Contracts, Infrastructure, Api, Printing y los 3 proyectos de pruebas. Agregar `Directory.Build.props` y `Directory.Packages.props`. Comprobar que `dotnet build` y `dotnet test` corren en verde.
+- [x] **E00-T001** Crear la solución con la plantilla *MAUI Blazor Hybrid and Web App* + Domain, Contracts, Infrastructure, Api, Printing y los 3 proyectos de pruebas. Agregar `Directory.Build.props` y `Directory.Packages.props`. Comprobar que `dotnet build` y `dotnet test` corren en verde. (Codex, 2026-11-03, PR #2 integrado).
 - [ ] **E00-T002** [P] GitHub Actions: compilar y probar en cada PR.
 - [ ] **E00-T003** [P] `tokens.css`, `base.css` y `components.css` con los tokens de la constitución §8 y las clases del demo (`.btn`, `.pill`, `.chip`, `.kpi`, `.tbl`, `.panel`, `.modal`, `.seg`, `.toggle`). Fuentes de Google incluidas localmente en `wwwroot/fonts`.
   - Comparar contra `img/01` y `03`.
