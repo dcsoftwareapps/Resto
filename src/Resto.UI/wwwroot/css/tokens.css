@@ -1,0 +1,28 @@
+:root{
+  color-scheme:light;
+  --navy:#1B2B3F; --navy-2:#2A4160; --on-navy:#FFFFFF;
+  --copper:#B8713A; --copper-ink:#8E5226; --copper-soft:#F4E7DB; --on-copper:#101820;
+  --bg:#F6F4F0; --surface:#FFFFFF; --surface-2:#FAF8F4; --line:#E4DED5; --line-2:#EFEBE4;
+  --fg:#1B2433; --muted:#626A76; --faint:#9AA0A9;
+  --ok-ink:#226045; --warn-ink:#80510D; --bad-ink:#A53226; --ok:#2E7D5B; --ok-soft:#E2F0E8; --warn:#9A6512; --warn-soft:#FAEFD9; --bad:#C0392B; --bad-soft:#F8E2DE;
+  --rail:#1B2B3F; --rail-fg:#B9C5D3; --rail-hover:#24384F; --bar:#2A4160;
+  --shadow:0 1px 2px rgba(27,43,63,.06),0 10px 30px rgba(27,43,63,.10);
+  --f-ui:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-display:'Schibsted Grotesk','Instrument Sans',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --k-bg:#0E141B; --k-card:#18212C; --k-line:#2A3644; --k-fg:#EEF1F4; --k-muted:#93A0AE;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --navy:#2C4766; --navy-2:#3A5A80; --copper:#D08A52; --copper-ink:#E8A877; --copper-soft:#3A2A1D;
+  --bg:#0F151D; --surface:#17202B; --surface-2:#1C2733; --line:#2B3746; --line-2:#222D3A;
+  --fg:#E8E4DD; --muted:#9AA3AF; --faint:#9AA3AF;
+  --ok-ink:var(--ok); --warn-ink:var(--warn); --bad-ink:var(--bad); --ok:#55B387; --ok-soft:#163226; --warn:#E3AA45; --warn-soft:#3A2D14; --bad:#E5705F; --bad-soft:#3D1E1A;
+  --rail:#0B1118; --rail-fg:#A9B5C3; --rail-hover:#16212E; --bar:#5B7DA6; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --navy:#2C4766; --navy-2:#3A5A80; --copper:#D08A52; --copper-ink:#E8A877; --copper-soft:#3A2A1D;
+  --bg:#0F151D; --surface:#17202B; --surface-2:#1C2733; --line:#2B3746; --line-2:#222D3A;
+  --fg:#E8E4DD; --muted:#9AA3AF; --faint:#9AA3AF;
+  --ok-ink:var(--ok); --warn-ink:var(--warn); --bad-ink:var(--bad); --ok:#55B387; --ok-soft:#163226; --warn:#E3AA45; --warn-soft:#3A2D14; --bad:#E5705F; --bad-soft:#3D1E1A;
+  --rail:#0B1118; --rail-fg:#A9B5C3; --rail-hover:#16212E; --bar:#5B7DA6; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  color-scheme:dark}

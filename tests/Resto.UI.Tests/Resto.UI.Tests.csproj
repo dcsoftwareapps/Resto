@@ -11,4 +11,8 @@
     <PackageReference Include="bunit" />
     <ProjectReference Include="..\..\src\Resto.UI\Resto.UI.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="../../src/Resto.UI/wwwroot/css/*.css" Link="DesignAssets/css/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/Resto.UI/wwwroot/fonts/*.ttf" Link="DesignAssets/fonts/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
