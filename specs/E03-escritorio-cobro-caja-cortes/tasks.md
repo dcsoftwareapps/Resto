@@ -30,14 +30,14 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E02 y E12 ter
   - Cumple: BR-COC-13, AC-COC-11 y 12.
 - [ ] **E03-T011** PDF del corte (QuestPDF) + `CutDeliveryService` por correo con `IMessageDelivery` + configuración de envío. Depende de T009 y E00-T019b.
   - Cumple: BR-CAJ-13, AC-CAJ-12.
-- [ ] **E03-T012** WhatsApp en `IMessageDelivery` (plantilla aprobada) y envío del corte por ahí. Depende de T011 y de P-01.
+- [ ] **E03-T012** Plantilla aprobada del corte y envío por WhatsApp usando el transporte real de `IMessageDelivery` de E00-T019b. Depende de T011 y E00-T019b. P-01 se decide antes de E00-T019b por el monitoreo; aquí se verifica BR-CAJ-13 con el PDF y el mensaje del corte.
 - [ ] **E03-T013** [P] `IPaidOrderQuery` e `ICashSessionService` para E01, E14, E15 y E16. Depende de T007.
 
 ## Bloque C · Pantallas
 
 - [ ] **E03-T014** `ChargeDialog` con propina, dividir, los 4 métodos, botones rápidos y partes. Depende de T007.
   - Comparar contra `img/01` y `02`.
-- [ ] **E03-T015** `PaidSummary` y `ReceiptPreview` con QR (provisional hasta E14). Depende de T014.
+- [ ] **E03-T015** `PaidSummary` y `ReceiptPreview` (el QR real lo agrega E14-T013, sin QR ficticio). Depende de T014.
   - Comparar contra `img/03`.
 - [ ] **E03-T016** `CashPage` con indicadores, vista previa X, configuración de envío e historial. Depende de T009 y T011.
   - Comparar contra `img/04`.
@@ -46,5 +46,5 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E02 y E12 ter
 
 ## Bloque D · Cierre
 
-- [ ] **E03-T018** Recorrido manual de AC-CAJ-01 a 14 con una impresora térmica real.
+- [ ] **E03-T018** Recorrido manual de AC-CAJ-01 a 14 con una impresora térmica real; verificar además E00 BR-PLT-08 (efectivo sin conexión) y BR-CFG-02 (desglose congelado al cobrar). El QR se verifica con E14-T013.
 - [ ] **E03-T019** Contestar P-01 a P-03.

@@ -1,6 +1,6 @@
 # E20 · Plataforma → Multisucursal · Tareas
 
-Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: Fases 0 a 2 terminadas y E15. **P-01 se contesta antes de empezar E04:** si es sí, el Bloque B (almacenes) se pasa a E04 antes de arrancarlo.
+Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: Fases 0 a 2 terminadas y E15. **P-01 resuelta el 2026-11-02:** E04 usa existencias por restaurante y Almacén como propiedad/filtro. El Bloque B permanece íntegro aquí, incluida la migración del plan; no se marca ninguna implementación como terminada.
 
 ## Bloque A · Sucursales y usuarios
 
@@ -28,4 +28,4 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: Fases 0 a 2 t
   - Cumple: BR-SUC-02, AC-SUC-02.
 - [ ] **E20-T009** Reportes con `branchId=all` + `OrganizationPage`. Depende de T001 y E15.
   - Comparar contra `img/02`. Cumple: BR-SUC-06, AC-SUC-01 y 07.
-- [ ] **E20-T010** Recorrido con 2 sucursales de prueba y contestar P-01 y P-02.
+- [ ] **E20-T010** Recorrido con 2 sucursales de prueba y verificar que se respetó la decisión P-01 y contestar P-02.

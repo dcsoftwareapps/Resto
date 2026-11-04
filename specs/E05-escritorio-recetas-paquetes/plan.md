@@ -80,3 +80,7 @@ public interface IMenuCatalog      // lo usan E02, E10, E13, E17 y E19
 ## 6. Paquetes
 
 Ninguno nuevo: la importación usa `ClosedXML` (E04). La traducción usa el cliente del servicio elegido en P-03 detrás de una interfaz `ITranslationService` interna. El almacenamiento de fotos depende de E00 P-01.
+
+## 7. Integraciones que introduce el catálogo
+
+E05-T006b crea tax_rule_products (propiedad de E08, migración incorporada aquí al existir menu_items), agrega el selector y PUT /api/settings/taxes/{id}/products con settings.manage, e integra IPricingSettings con los productos reales. La misma tarea expone mediante el contrato IMenuCatalog la consulta de asignaciones necesaria para impedir desactivar una estación usada (BR-CFG-06, AC-CFG-07). E08 no consulta tablas del catálogo directamente. La implementación y prueba de extremo a extremo son de E05; el ejemplo calculado queda en E02-T016b.

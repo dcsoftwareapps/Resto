@@ -148,6 +148,6 @@ Datos: Mesa 1 #1049 sin promociones = $560.00. Turno con fondo de $1,500.
 
 | ID | Pregunta | Contesta | Estado |
 |---|---|---|---|
-| P-01 | **WhatsApp:** mandarlo automático requiere la API de WhatsApp Business (Meta Cloud API o un proveedor como Twilio) y una plantilla aprobada. ¿Lo contratamos o empezamos solo con correo? | Equipo | Abierta |
+| P-01 | **WhatsApp:** mandarlo automático requiere la API de WhatsApp Business (Meta Cloud API o un proveedor como Twilio) y una plantilla aprobada. ¿Qué proveedor contratamos? El transporte común se necesita antes de E00-T019b para el monitoreo por WhatsApp; E03 conserva la plantilla y la integración del corte. La decisión sigue abierta, sin sustituirla por un no-op. | Equipo | Abierta |
 | P-02 | En Baja California se cobra mucho en **dólares**. ¿Aceptamos USD en efectivo con tipo de cambio configurable? | Equipo | Abierta |
 | P-03 | ¿La propina con tarjeta se le paga al mesero en efectivo al cierre (y se descuenta del efectivo esperado)? | Equipo | Abierta |

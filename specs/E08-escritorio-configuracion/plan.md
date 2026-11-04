@@ -4,12 +4,12 @@
 
 | Tabla | Columnas | Notas |
 |---|---|---|
-| `restaurant_settings` | `RestaurantId` (PK), `PricesIncludeTax`, `DefaultWastePercent`, `DefaultOpeningFloat`, `ExpiryWarningDays`, `MinMarginPercent`, `KitchenWarnMinutes`, `KitchenLateMinutes`, `RegisterIdleMinutes`, `PhoneIdleMinutes`, `PrintKitchenTickets`, `ShowKitchenDisplay`, `ReceiptPrinterId` | Una fila por restaurante, creada con valores por defecto |
+| `restaurant_settings` | `RestaurantId` (PK), `PricesIncludeTax`, `DefaultWastePercent`, `DefaultOpeningFloat`, `ExpiryWarningDays`, `MinMarginPercent`, `KitchenWarnMinutes`, `KitchenLateMinutes`, `RegisterIdleMinutes`, `PhoneIdleMinutes`, `PrintKitchenTickets`, `ShowKitchenDisplay`, `ReceiptPrinterId` (lo agrega E12-T004b) | Una fila por restaurante, creada con valores por defecto |
 | `tax_rules` | `Id`, `RestaurantId`, `Name`, `Rate` (`numeric(7,4)`), `Scope` (`Bill`, `Products`), `IsActive` | |
-| `tax_rule_products` | `TaxRuleId`, `MenuItemId` | |
+| `tax_rule_products` (la agrega E05-T006b) | `TaxRuleId`, `MenuItemId` | |
 | `custom_field_definitions` | `Id`, `RestaurantId`, `Key` (slug inmutable), `Name`, `Type` (`Text`, `Number`, `Date`), `IsVisible`, `SortOrder` | |
-| `kitchen_stations` | `Id`, `RestaurantId`, `Name`, `PrinterId?`, `IsActive`, `SortOrder` | |
-| `ingredient_categories` | (definida en E04, se edita aquí) | |
+| `kitchen_stations` | `Id`, `RestaurantId`, `Name`, `PrinterId?` (lo agrega E12-T004b), `IsActive`, `SortOrder` | |
+| `ingredient_categories` | Entidad y seed: E04-T007; API/editor en esta pantalla: E04-T007b | |
 
 Zona horaria, día de operación y nombre viven en `restaurants` (E00) y se editan aquí.
 
@@ -52,7 +52,7 @@ public interface IPricingSettings      // E02, E03, E13, E14
 ```
 
 - Las dos se implementan con una caché por restaurante que se invalida con `SettingsChanged`.
-- **Reemplazan** las implementaciones provisionales `DefaultRestaurantSettings` y `DefaultPricingSettings` que usaron E02 y E04 mientras tanto.
+- Se entregan reales antes de E04. No hay implementaciones provisionales. E05-T006b amplía `IPricingSettings` con los productos reales al crear su catálogo.
 
 ## 3. API (`/api/settings`)
 
@@ -60,14 +60,16 @@ public interface IPricingSettings      // E02, E03, E13, E14
 |---|---|
 | `GET /api/settings` (todo junto para las pestañas) | `settings.manage` |
 | `PUT /api/settings/general` | `settings.manage` |
-| CRUD `/api/settings/taxes`, `PUT …/taxes/{id}/products` | `settings.manage` |
-| `GET /api/settings/taxes/example` (BR-CFG-03) | `settings.manage` |
-| `PUT /api/settings/waste` `{ DefaultPercent }` · `PUT /api/inventory/ingredients/{id}/waste` `{ Percent? }` | `settings.manage` |
+| CRUD `/api/settings/taxes`; `PUT …/taxes/{id}/products` lo agrega E05-T006b | `settings.manage` |
+| `GET /api/settings/taxes/example` (BR-CFG-03; lo agrega E02-T016b) | `settings.manage` |
+| `PUT /api/settings/waste` `{ DefaultPercent }` · `PUT /api/inventory/ingredients/{id}/waste` `{ Percent? }` (E04-T010b) | `settings.manage` |
 | CRUD `/api/settings/custom-fields` | `settings.manage` |
 | CRUD `/api/settings/stations` (impresoras: E12-T004b) | `settings.manage` |
-| CRUD `/api/settings/ingredient-categories` | `settings.manage` |
+| CRUD `/api/settings/ingredient-categories` (E04-T007b) | `settings.manage` |
 
-**Prueba de impresión:**
+**Integraciones:** la eliminación de valores y la merma por insumo se implementan en E04-T010b; las salvaguardas por platillos en E05-T006b y por órdenes en E02-T006b, usando contratos del dueño, nunca consultas directas entre epics. No se registra un adaptador vacío antes de que exista la capacidad.
+
+**Prueba de impresión (la implementa E12-T004b):**
 - *Red:* la hace el servidor si está en la misma red. Si no lo está (servidor en la nube), la hace el dispositivo: el endpoint emite `PrintTestRequested` al dispositivo de caja y este imprime con `Resto.Printing` (E12).
 - *USB:* siempre la hace el dispositivo al que está conectada.
 
@@ -87,8 +89,8 @@ public interface IPricingSettings      // E02, E03, E13, E14
 | Proyecto | Qué cubre |
 |---|---|
 | Domain.Tests | Validaciones BR-CFG-01, 04 a 06 y 08 |
-| Api.Tests | AC-CFG-01 y 02 (con `OrderPricing` real), 03 a 07, 09 y 10; invalidación de caché con `SettingsChanged` |
-| Manual | AC-CFG-08 con impresora real |
+| Api.Tests | Capacidades propias y contratos de spec §6.1; AC-CFG-03/09 e invalidación con `SettingsChanged`. Las integraciones se verifican en E04, E05, E02 y E12 según la matriz. |
+| Manual | Cierre propio E08-T012; AC-CFG-08 físico en E12-T011 |
 
 ## 6. Paquetes
 

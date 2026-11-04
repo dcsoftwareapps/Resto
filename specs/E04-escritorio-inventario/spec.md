@@ -235,9 +235,23 @@ Datos de ejemplo del demo: Limón con 3.2 kg, mínimo 6 kg, merma propia de 10%;
 | AC-INV-24 | una toma con 12 insumos con diferencia | toco *Aplicar* | se crean 12 movimientos `PhysicalCount` y la auditoría dice "Aplicó toma de inventario: 12 diferencias, −$486.20" |
 | AC-INV-25 | el kardex del Camarón | lo abro | veo los movimientos de 7 días con antes, después, quién y referencia, y los totales de entradas y salidas |
 
+### 6.1 Verificación propia y escenarios posteriores
+
+E04 termina todas sus reglas, persistencia, APIs, interfaz de escritorio, avisos y contratos reales. E04-T022 registra por separado la evidencia siguiente; ningún AC cruzado se marca completo por cambiar de dueño.
+
+| AC | Implementación/verificación propia o contractual en E04 | Extremo a extremo pendiente |
+|---|---|---|
+| AC-INV-02, 11, 18, 19 | Filtro, niveles, sugeridos y recepción/conversión/costo sobre los servicios reales de E04 | A compras y En la lista: E06-T010; compra real: E06-T003/T011 |
+| AC-INV-05 | Piso 0, movimiento, Shortfall, aviso y emisión del StockChanged canónico | Alerta persistida y visible en Seguridad: E09-T003/T010 |
+| AC-INV-08 a 10 | Consumo/retorno real con líneas de contrato, movimientos, redondeo y aviso único al cruzar mínimo | Envío/cancelación por POS: E02-T007/T009/T023; no se adelantan recetas ni órdenes |
+| AC-INV-16 | AuditEntry real con usuario, detalle y antes/después | Consulta en Auditoría: E09-T006/T009/T010 |
+| AC-INV-23/24 | Toma real con movimientos intercalados por los contratos de E04 | Ventas/compras desde sus pantallas: E02-T023/E06-T011; celular: E11-T007b/T008 |
+
+Los demás AC se verifican sobre E04. El catálogo/selector y la FK de proveedor se integran en E06-T002/T006/T010; no se crea un proveedor ficticio en E04. E04 añade las integraciones de Configuración E08 descritas en plan §11 (T007b/T010b).
+
 ## 7. Fuera de alcance
 
-- Varios almacenes con traspasos (E20). Aquí "Almacén" es solo una propiedad para filtrar.
+- Varios almacenes con traspasos (E20). Aquí "Almacén" es solo una propiedad para filtrar. Decisión aprobada el 2026-11-02 (E20 P-01): existencias por restaurante; no se adelantan StorageLocation ni balances independientes; se acepta la migración posterior descrita en E20.
 - Lotes y caducidad por lote. Hoy cada insumo tiene una sola fecha de caducidad.
 - Reportes de costo real contra teórico (E15).
 

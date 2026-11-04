@@ -67,7 +67,7 @@ flowchart LR
 
 ### `IngredientCategory`
 
-`Id`, `RestaurantId`, `Name`, `SortOrder`. Las categorías por defecto se cargan con E00 o E08: Mariscos, Abarrotes, Verduras, Lácteos, Licores y Bebidas.
+`Id`, `RestaurantId`, `Name`, `SortOrder`. La entidad y las categorías por defecto se crean en E04-T007; E04-T007b agrega su API/editor en Configuración: Mariscos, Abarrotes, Verduras, Lácteos, Licores y Bebidas.
 
 ## 3. Reglas en Domain (`Resto.Domain/Inventory/`)
 
@@ -121,9 +121,9 @@ Todo lo de Domain es puro, sin EF, sin reloj del sistema (la fecha se recibe com
 
 | Evento | Payload | Cuándo |
 |---|---|---|
-| `StockChanged` | `{ IngredientId, Stock, Level, IsBelowMinimum }` | En cada movimiento |
+| `StockChanged` | `{ IngredientId, Stock, Level, IsBelowMinimum, Shortfall }` | En cada movimiento |
 | `StockCountUpdated` | `{ CountId, Counted, Total }` | Al capturar una línea de la toma (la ven la computadora y los celulares que cuentan) |
-| `IngredientBelowMinimum` | `{ IngredientId, Name, Stock, Unit }` | Solo al cruzar el mínimo (BR-INV-10). Se envía al grupo `role:chef`. |
+| `IngredientBelowMinimum` | `{ IngredientId, Name, Stock, Unit }` | Solo al cruzar el mínimo (BR-INV-10). Se envía al grupo `restaurant:{restaurantId}:role:chef`. |
 
 La lista se actualiza al recibir `StockChanged` sin recargar (AC-INV-15).
 
@@ -180,7 +180,7 @@ public interface IReorderQuery
 
 - E04 aplica la merma (BR-INV-02). E05 solo entrega cantidades de receta.
 - `ReturnForCancelledItemAsync` busca los movimientos `SaleConsumption` de ese `OrderItemId` y los revierte exactos.
-- **Mientras E08 no exista**, la merma general (5%), los días de "por caducar" (2) y las propiedades por defecto se leen de `IRestaurantSettings` con una implementación provisional (`DefaultRestaurantSettings`).
+- E08 está terminado antes de E04: la merma general, los días de caducidad y las propiedades se leen de su implementación real de `IRestaurantSettings`, sin `DefaultRestaurantSettings`. La definición completa del contrato es la de E08 plan §2; el fragmento siguiente muestra solo los miembros que consume Inventario.
 
 ```csharp
 // La implementa E08. E04 solo la lee.
@@ -211,3 +211,9 @@ public interface IRestaurantSettings
 | Paquete | Proyecto | Para qué |
 |---|---|---|
 | `ClosedXML` (licencia MIT) | `Resto.Infrastructure` | Leer el Excel de importación y generar la plantilla. No se usa en Domain ni en UI. |
+
+## 11. Integraciones de Configuración que completa E04
+
+E04-T007b crea CRUD de categorías y su editor dentro de Restaurante (E08). E04-T010b implementa la merma propia (0–60%, vacío = general), API protegida por settings.manage y tabla por insumo en Merma; integra los valores dinámicos con las definiciones de E08 y la eliminación real de valores con su definición, manteniendo auditoría/confirmación y sin acceso directo entre epics. Ocultar conserva valores. Verifica BR-CFG-04/05 y AC-CFG-04 a 06 con datos reales.
+
+La existencia continúa en Ingredient.Stock por restaurante. Almacén es una propiedad/filtro, sin balances por ubicación; StorageLocation y la migración siguen en E20 (P-01 resuelta el 2026-11-02). La verificación de aceptación propia/contractual/posterior se detalla en spec §6.1.

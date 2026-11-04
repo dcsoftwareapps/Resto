@@ -107,9 +107,11 @@ public interface IClock
 ## 6. Tiempo real
 
 - `RestaurantHub` en `/hubs/restaurant` con autenticación JWT.
-- Al conectar, agrega al cliente a `restaurant:{id}`, `user:{id}`, `role:{rolKey}` y, si es pantalla de cocina, a `station:{id}`.
+- Al conectar, agrega al cliente a `restaurant:{id}`, `user:{id}`, `restaurant:{id}:role:{rolKey}` y, si es pantalla de cocina, a `station:{id}`.
 - `IHubContext<RestaurantHub>` se envuelve en `IRealtimePublisher.PublishAsync(group, eventName, payload)` para que los epics no dependan de SignalR.
 - **Cliente:** `RealtimeConnection` en UI con reconexión automática. Al reconectar, dispara el evento `Resynced` y cada página vuelve a cargar su estado (BR-PLT-13).
+
+Los grupos de rol están aislados por restaurante, según `docs/contratos.md`. T018 prueba que dos restaurantes con el mismo rol no reciben eventos del otro.
 
 ## 7. Sin conexión (app MAUI)
 
@@ -163,20 +165,20 @@ public interface IClock
 - **Logs:** `ILogger` con salida estructurada (JSON) y `TraceId` en cada respuesta de error para el código de referencia.
 - **Migraciones:** `dotnet ef migrations` en Infrastructure. En producción se aplican al desplegar.
 - **Respaldos (BR-PLT-14):** PostgreSQL administrado con *point-in-time restore* de 7 días + exportación mensual (`pg_dump`) a almacenamiento frío con retención de 12 meses. Job mensual `RestoreDrill` en GitHub Actions que restaura a *staging*, corre `/health` y deja el resultado en `docs/bitacora-restauraciones.md`.
-- **Monitoreo:** `MapHealthChecks("/health")` con revisión de base de datos y SignalR. OpenTelemetry → Application Insights (o el equivalente del hospedaje de P-01). Alertas: 3 fallas seguidas, errores 5xx > 1% en 5 min o respuesta p95 > 2 s.
+- **Monitoreo:** `MapHealthChecks("/health")` con revisión de base de datos y SignalR. OpenTelemetry → Application Insights (o el equivalente del hospedaje de P-01). Los transportes reales de correo y WhatsApp se entregan en E00-T019b; E00-T024c verifica ambos sin depender de caja ni de cortes. Alertas: 3 fallas seguidas, errores 5xx > 1% en 5 min o respuesta p95 > 2 s.
 - **Seguridad (BR-PLT-15):** `UseHttpsRedirection` + `UseHsts`, `AddRateLimiter` (ventana fija de 20 por minuto por IP en `/api/auth/*` y endpoints públicos), encabezados CSP, `X-Content-Type-Options` y `Referrer-Policy`. Secretos en variables de entorno o *Key Vault*. Revisión OWASP Top 10 en la lista de cada versión.
 - **Privacidad (BR-PLT-16):** interfaz `IPersonalDataEraser` que cada epic con datos de clientes implementa (E14 `fiscal_customers`, E18 `incoming_orders`). El borrado reemplaza nombre, teléfono y correo por "Eliminado" y queda en auditoría.
 - **Ambientes:** `Development`, `Staging` y `Production`, cada uno con su base de datos y sus secretos.
-- **Datos semilla de desarrollo:** el restaurante *Mariscos El Faro* con los mismos usuarios, insumos y platillos del demo (`DevSeed.cs`), para que todos prueben con los datos de las capturas.
+- **Datos semilla de desarrollo:** el restaurante *Mariscos El Faro*, 9 usuarios y 6 roles del demo (`DevSeed.cs`, E00-T008). Insumos/categorías y platillos se incorporan en sus seeds reales de E04/E05, sin tablas anticipadas.
 
 ## 11. Pruebas
 
 | Proyecto | Qué cubre |
 |---|---|
 | Domain.Tests | `IClock.BusinessDay` (BR-PLT-11) y reglas de PIN |
-| Api.Tests | AC-PLT-01 a 08, 11, 14 y 15 con Testcontainers. **Prueba de aislamiento** que recorre todas las entidades `TenantEntity` y verifica que no se ven datos de otro restaurante (BR-PLT-05). |
+| Api.Tests | Capacidades propias y contratos de AC-PLT-01 a 08, 11, 14 y 15 con Testcontainers, según spec §6.1 (sin acreditar pantallas ni entidades posteriores). **Prueba de aislamiento** que recorre todas las entidades `TenantEntity` y verifica que no se ven datos de otro restaurante (BR-PLT-05). |
 | UI.Tests | `NavRail` por permisos, `ConnectivityBanner` y `LockScreen` |
-| Manual | AC-PLT-09, 10, 13 y 16 (sin conexión, *push* y reconexión) |
+| Manual | Capacidades propias y *push*/reconexión; pruebas de contrato y escenarios cruzados según spec §6.1 |
 
 ## 12. Paquetes
 
@@ -188,6 +190,6 @@ public interface IClock
 | `Microsoft.AspNetCore.SignalR.Client` | UI | Tiempo real |
 | `FluentValidation.DependencyInjectionExtensions` | Api | Validación de peticiones (todos los epics la usan) |
 | `FirebaseAdmin` | Infrastructure | *Push* (sujeto a P-02) |
-| Proveedor de correo (SMTP o API, por ejemplo SendGrid o Amazon SES) | Infrastructure | `IMessageDelivery` (correo). WhatsApp se conecta en E03-T012. |
+| Proveedor de correo (SMTP o API, por ejemplo SendGrid o Amazon SES) | Infrastructure | `IMessageDelivery` (correo). WhatsApp real se implementa aquí en T019b (proveedor según E03 P-01, a resolver antes); E03-T012 integra el corte. |
 | `Plugin.Firebase.CloudMessaging` | App | Recibir *push* (sujeto a P-02) |
 | `xunit`, `bunit`, `Testcontainers.PostgreSql`, `Microsoft.AspNetCore.Mvc.Testing` | tests | Pruebas |

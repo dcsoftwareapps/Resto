@@ -13,6 +13,8 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00 y E04-T00
   - Cumple: BR-REC-09.
 - [ ] **E05-T006** API de platillos, recetas, componentes, agotado hoy, categorías y extras, con auditoría de precio. Depende de T004.
   - Cumple: BR-REC-06, BR-REC-05, AC-REC-08 a 11.
+- [ ] **E05-T006b** Integraciones con Configuración: crear `tax_rule_products`, selector/API de productos para impuestos, y salvaguarda de desactivación de estaciones con platillos asignados, mediante contratos reales del catálogo (sin leer sus tablas desde E08). Depende de T005, T006 y E08-T004/T007.
+  - Cumple: BR-CFG-01/06 y AC-CFG-07; verificar productos reales, mensaje con cantidad y reasignación previa. El ejemplo fiscal con `OrderPricing` sigue en E02-T016b.
 - [ ] **E05-T007** Subida y recorte de foto. Depende de T006 y E00 P-01.
 - [ ] **E05-T008** `RecipesPage`, `MenuItemList` y `RecipeEditor`. Depende de T006.
   - Comparar contra `img/01` y `02`.

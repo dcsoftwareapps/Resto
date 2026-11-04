@@ -41,7 +41,7 @@ Todos dependen de E00 (`ICurrentUser`, `IAuditLog`, `INotificationService`, `IMe
 | `INotificationService` | E00 | E02, E04, E06, E09, E10, E11, E12, E18 | Avisos a un usuario o a un rol: campana en escritorio y *push* en celular |
 | `IClock` | E00 | Todos | Hora actual en UTC y en la zona del restaurante (para pruebas) |
 | `IIdempotencyStore` | E00 | Endpoints que reciben datos del celular | Evita duplicados al reenviar desde la cola sin conexión |
-| `IMessageDelivery` | E00 | E03, E06, E07, E14, E21 | Enviar correo (con adjuntos) y WhatsApp (según E03 P-01) |
+| `IMessageDelivery` | E00 | E03, E06, E07, E14, E21 | Enviar correo (con adjuntos) y WhatsApp reales desde E00-T019b; decidir E03 P-01 antes de esa tarea; E03-T012 integra el corte |
 | `IPersonalDataEraser` | E00 (define) | Lo implementan E14 y E18 | Anonimizar los datos personales de un cliente a petición, sin borrar ventas ni facturas (E00 BR-PLT-16) |
 | `IRealtimePublisher` | E00 | Todos | Publicar eventos de SignalR sin depender de SignalR |
 | `IRestaurantSettings` | E08 | E04, E05, E12 | Merma general, días de caducidad, propiedades extra, estaciones |
@@ -66,15 +66,17 @@ Todos dependen de E00 (`ICurrentUser`, `IAuditLog`, `INotificationService`, `IMe
 | `ISecurityRules` | E09 | E02, E03 | Umbrales de alertas y reimpresiones |
 | `IModuleGate` | E00 (E21 escribe los módulos según el plan) | Todos (vía `.RequireModule()`) | Saber si el plan del cliente incluye un módulo |
 
-**Regla para avanzar en paralelo:** si un epic necesita una interfaz que todavía no existe, la usa a través de una **implementación provisional** (`Default…` o `Null…`) que vive en el proyecto del dueño. Cuando el dueño entrega la real, se reemplaza en el registro de dependencias y nada más cambia.
+**Regla de integración:** se consume una implementación real ya terminada. Si la capacidad pertenece a un epic posterior, ese epic implementa la integración y su prueba de extremo a extremo; el anterior termina su capacidad propia y sus pruebas de contrato. No se registran implementaciones provisionales, falsas ni no-op en producción (ver [proceso](proceso.md#cierre-e-integración-entre-epics)).
 
 ## Eventos de tiempo real (SignalR, `RestaurantHub`)
 
 **Grupos:**
 - `restaurant:{id}`: todos los dispositivos del restaurante
-- `role:{rol}`: por ejemplo, `role:chef`
+- `restaurant:{restaurantId}:role:{roleKey}`: por ejemplo, `restaurant:{restaurantId}:role:chef`
 - `user:{id}`
 - `station:{id}`: cada estación de cocina
+
+En la tabla, `role:chef`, `role:compras`, etc. son abreviaturas del grupo **siempre calificado por restaurante** anterior. E00 deriva la pertenencia de la sesión autenticada, nunca de un grupo elegido por el cliente; verifica que usuarios, estaciones y dispositivos pertenecen al restaurante autorizado. No existe un grupo global por nombre de rol.
 
 | Evento | Lo emite | Grupo | Payload | Lo escuchan |
 |---|---|---|---|---|
@@ -84,8 +86,8 @@ Todos dependen de E00 (`ICurrentUser`, `IAuditLog`, `INotificationService`, `IMe
 | `ItemsDispatched` | E12 | restaurant + user mesero | `{OrderId, ItemIds[]}` | E01, E02, E10, E18 |
 | `BillRequested` | E10 | role:cajero + role:gerente | `{OrderId, Table}` | E01, E03 |
 | `OrderPaid` | E03 | restaurant | `{OrderId, Total}` | E01, E14, E15 |
-| `StockChanged` | E04 | restaurant | `{IngredientId, Stock, Level}` | E04, E05, E10 |
-| `IngredientBelowMinimum` | E04 | role:chef | `{IngredientId, Name, Stock}` | E11 |
+| `StockChanged` | E04 | restaurant | `{ IngredientId, Stock, Level, IsBelowMinimum, Shortfall }` | E04, E05, E10, E09 (Shortfall) |
+| `IngredientBelowMinimum` | E04 | role:chef | `{ IngredientId, Name, Stock, Unit }` | E11 |
 | `PurchaseRequestChanged` | E06 | role:compras + user que pidió | `PurchaseRequestDto` | E06, E11 |
 | `SecurityAlertRaised` | E09 | role:gerente | `SecurityAlertDto` | E09 |
 | `IncomingOrderReceived` | E18 | role:cajero + mesero de la mesa | `IncomingOrderDto` | E10, E18 |
@@ -94,6 +96,8 @@ Todos dependen de E00 (`ICurrentUser`, `IAuditLog`, `INotificationService`, `IMe
 | `PromotionsChanged` | E13 | restaurant | — | E02, E10, E17, E19 |
 | `MenuChanged` | E05 | restaurant | `{ MenuItemIds[] }` | E02, E10, E17, E18 |
 | `PrintJobRequested` / `PrintJobFailed` | E12 | device (caja anfitriona) / role:cajero | `PrintJobDto` | E12 (caja) |
-| `PrintTestRequested` | E08 | device (caja anfitriona) | `{ PrinterId }` | E12 (caja) |
+| `PrintTestRequested` | E12 (pantalla de Configuración de E08) | device (caja anfitriona) | `{ PrinterId }` | E12 (caja) |
 | `StockCountUpdated` | E04 | role:gerente + role:chef | `{ CountId, Counted, Total }` | E04, E11 |
 | `TerminalPaymentUpdated` | E16 | user | `{ PaymentId, Status, Brand, Last4, Auth }` | E03, E19 |
+
+`StockChanged` es el contrato canónico de E04: `Shortfall` es decimal (0 cuando no faltó existencia), igual al registrado por el movimiento. E04 lo emite y verifica; E09-T003 lo consume para crear la alerta real. No se omite el campo cuando es 0.

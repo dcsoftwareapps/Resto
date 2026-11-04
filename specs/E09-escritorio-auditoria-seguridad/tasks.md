@@ -6,13 +6,13 @@ Formato en [`docs/proceso.md`](../../docs/proceso.md). Requisitos: E00-T006 (aud
 - [ ] **E09-T002** `IManagerOverride` (emitir y consumir) + `RequirePermissionOrOverride`. Depende de T001.
   - Cumple: BR-SEG-01 y 02, AC-SEG-03.
 - [ ] **E09-T003** `ISecurityAlerts` + avisos + `SecurityAlertRaised`. Escucha `PinLockedOut` (E00) y `StockChanged` con `Shortfall` (E04) para crear sus alertas. Depende de T001.
-  - Cumple: BR-SEG-03 y 04.
+  - Cumple: BR-SEG-03 y 04; verifica de extremo a extremo E00 AC-PLT-05 y E04 AC-INV-05 (alertas reales), con el payload canónico de docs/contratos.md.
 - [ ] **E09-T004** [P] Disparadores de cancelaciones por turno y de diferencia de corte con `ISecurityRules`. Depende de T003.
   - Cumple: AC-SEG-05 y 06.
 - [ ] **E09-T005** API de alertas y reglas. Depende de T003.
   - Cumple: BR-SEG-05, AC-SEG-07.
 - [ ] **E09-T006** API de auditoría con búsqueda sin acentos, detalle y exportación. Depende de T001.
-  - Cumple: BR-SEG-06 y 07, AC-SEG-08 a 10.
+  - Cumple: BR-SEG-06 y 07, AC-SEG-08 a 10 y consulta real de E04 AC-INV-16.
 - [ ] **E09-T007** `ManagerPinDialog` compartido. Depende de T002.
   - Comparar contra `img/03`. Cumple: AC-SEG-01 y 02.
 - [ ] **E09-T008** `SecurityPage`. Depende de T005.
