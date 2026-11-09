@@ -3,6 +3,8 @@
     <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" PrivateAssets="all" />
     <ProjectReference Include="..\Resto.Domain\Resto.Domain.csproj" />
     <ProjectReference Include="..\Resto.Contracts\Resto.Contracts.csproj" />
   </ItemGroup>

@@ -54,7 +54,7 @@ tests/
 ## 4. Reglas técnicas
 
 1. **Dinero y cantidades en `decimal`.** Dinero con 2 decimales y cantidades de inventario con 3. En PostgreSQL: `numeric(12,2)` y `numeric(12,3)`. Redondeo `MidpointRounding.AwayFromZero`.
-2. **Multi restaurante.** Toda entidad de negocio tiene `OrganizationId` (el cliente que paga) y `RestaurantId` (la sucursal), y EF Core aplica un filtro global por el restaurante del usuario. Nunca se consulta sin ese filtro. Ver [`modelo-datos.md`](modelo-datos.md).
+2. **Multi restaurante.** Toda entidad de negocio tiene `OrganizationId` (el cliente que paga) y `RestaurantId` (la sucursal), y EF Core aplica un filtro global por el restaurante del usuario. El filtro exige ambos identificadores. Excepciones de raíz aprobadas en E00 P-06: Organization usa su Id como organización y no lleva RestaurantId; Restaurant lleva Id y OrganizationId, sin RestaurantId redundante. Sus consultas siguen restringidas al contexto autorizado, sin acceso con contexto ausente o inválido. Nunca se consulta sin el filtro aplicable. Ver [`modelo-datos.md`](modelo-datos.md).
 3. **Auditoría.** Toda escritura pasa por un servicio que registra `AuditEntry` con usuario, fecha UTC, módulo, acción, valores antes y después. La auditoría no se edita ni se borra.
 4. **Permisos y plan en el servidor.** Cada endpoint declara su permiso (`.RequirePermission(Permissions.InventoryAdjust)`) y su módulo (`.RequireModule(Modules.Inventory)`, E00; E21 decide qué módulos tiene cada plan). La UI esconde lo que no puedes usar, pero eso no sustituye la validación.
 5. **Fechas.** Se guardan en UTC. Se muestran en la zona del restaurante (por defecto `America/Tijuana`).
