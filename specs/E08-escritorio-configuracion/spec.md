@@ -143,7 +143,7 @@ E08 termina sus datos, validaciones, APIs y pantallas de configuración propias.
 | AC-CFG-10 | Mesas y cambio de cantidad | E02-T006b: salvaguarda con órdenes abiertas y AC-10 completo |
 | Categorías (§3.5) | E08 aporta la pantalla Restaurante | E04-T007/T007b: entidad, seed, API y editor real dentro de esa pantalla |
 
-E08-T012 verifica lo propio y los contratos reales, y registra cada escenario posterior como **pendiente**, con las tareas anteriores. No implementa selectores, tablas de insumos, ejemplos de cobro ni impresoras ficticios para cerrar. E04 se inicia solo tras ese cierre de E08.
+E08-T012 verifica lo propio y los contratos reales, y registra cada escenario posterior como **pendiente**, con las tareas anteriores. No implementa selectores, tablas de insumos, ejemplos de cobro ni impresoras ficticios para cerrar. E04 se inicia tras integrar toda la implementación propia de E08 y aprobar los controles disponibles. La evidencia dependiente de infraestructura se registra según [el proceso](../../docs/proceso.md#validación-diferida).
 
 ## 7. Fuera de alcance
 

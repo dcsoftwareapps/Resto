@@ -19,9 +19,9 @@ Este archivo lo leen Codex, Claude Code, Copilot, Cursor y cualquier agente que 
 - **La spec no se cambia en silencio.** Si encuentras que la spec está mal, incompleta o contradice al plan, no la "arregles" en el código. Escribe la duda en *Preguntas abiertas*, marca la tarea como bloqueada y avisa.
 - **Pruebas primero cuando la tarea toca reglas de negocio.** Cada regla `BR-…` tiene al menos una prueba que la nombra, por ejemplo `BR_INV_02_descuenta_receta_mas_merma`.
 - **Al terminar:**
-  1. `dotnet build` sin warnings nuevos.
-  2. `dotnet test` en verde.
-  3. Marca la casilla de la tarea en `tasks.md` con tu nombre o el de la IA y la fecha.
+  1. Ejecuta `dotnet build` sin errores ni warnings nuevos.
+  2. Ejecuta las pruebas unitarias disponibles, el análisis estático y los controles aplicables. Registra cualquier prueba PostgreSQL diferida según [el proceso](docs/proceso.md#validación-diferida).
+  3. Registra la evidencia en `tasks.md`. Marca la casilla con tu nombre o el de la IA y la fecha solo cuando la tarea esté integrada tras revisión humana y completamente validada.
   4. Commit con el formato `E04-T007: descripción corta`.
 
 ## Convenciones rápidas (el detalle está en la constitución)
