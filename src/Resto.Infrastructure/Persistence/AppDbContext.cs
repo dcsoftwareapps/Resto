@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Resto.Domain.Platform;
 using Resto.Domain.Platform.Abstractions;
+using Resto.Domain.Users;
 
 namespace Resto.Infrastructure.Persistence;
 
@@ -17,6 +18,9 @@ public class AppDbContext : DbContext
 
     public DbSet<Organization> Organizations => Set<Organization>();
     public DbSet<Restaurant> Restaurants => Set<Restaurant>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Role> Roles => Set<Role>();
+    public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
 
     internal ICurrentUser RequireCurrentUser()
     {
@@ -56,6 +60,25 @@ public class AppDbContext : DbContext
         restaurants.Property(x => x.TimeZone).HasDefaultValue("America/Tijuana");
         restaurants.Property(x => x.BusinessDayCutoff).HasDefaultValue(new TimeOnly(4, 0));
         restaurants.Property(x => x.NextOrderNumber).HasDefaultValue(1);
+
+        var roles = modelBuilder.Entity<Role>();
+        roles.ToTable("roles");
+        roles.HasAlternateKey(x => new { x.Id, x.OrganizationId, x.RestaurantId });
+
+        var users = modelBuilder.Entity<User>();
+        users.ToTable("users");
+        users.HasOne<Role>().WithMany()
+            .HasForeignKey(x => new { x.RoleId, x.OrganizationId, x.RestaurantId })
+            .HasPrincipalKey(x => new { x.Id, x.OrganizationId, x.RestaurantId })
+            .OnDelete(DeleteBehavior.Restrict);
+
+        var permissions = modelBuilder.Entity<RolePermission>();
+        permissions.ToTable("role_permissions");
+        permissions.HasIndex(x => new { x.RoleId, x.Permission }).IsUnique();
+        permissions.HasOne<Role>().WithMany()
+            .HasForeignKey(x => new { x.RoleId, x.OrganizationId, x.RestaurantId })
+            .HasPrincipalKey(x => new { x.Id, x.OrganizationId, x.RestaurantId })
+            .OnDelete(DeleteBehavior.Restrict);
 
         foreach (var entityType in modelBuilder.Model.GetEntityTypes().ToList())
         {

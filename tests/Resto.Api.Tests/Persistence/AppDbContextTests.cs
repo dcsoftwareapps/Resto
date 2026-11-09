@@ -145,7 +145,9 @@ public sealed class AppDbContextTests : IAsyncLifetime
     {
         await using var db = CreateContext();
         Assert.False(db.Database.HasPendingModelChanges());
-        Assert.Single(await db.Database.GetAppliedMigrationsAsync());
+        var migrations = db.Database.GetMigrations().ToArray();
+        Assert.EndsWith("_Initial", migrations[0]);
+        Assert.Equal(migrations, await db.Database.GetAppliedMigrationsAsync());
         Assert.Equal("America/Tijuana", (await db.Restaurants.SingleAsync()).TimeZone);
         Assert.Equal(new TimeOnly(4, 0), (await db.Restaurants.SingleAsync()).BusinessDayCutoff);
         var migrator = db.GetService<Microsoft.EntityFrameworkCore.Migrations.IMigrator>();
