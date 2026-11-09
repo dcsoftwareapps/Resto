@@ -28,7 +28,7 @@ Este archivo lo leen Codex, Claude Code, Copilot, Cursor y cualquier agente que 
 
 - El código va en **inglés** siguiendo las convenciones de Microsoft para C#. Los textos de pantalla van en **español**.
 - El dinero y las cantidades se guardan como `decimal`, **nunca** `double` ni `float`.
-- Toda tabla de negocio lleva `OrganizationId` y `RestaurantId`, con filtro global en EF Core.
+- Toda tabla de negocio por restaurante lleva `OrganizationId` y `RestaurantId`, con filtro global en EF Core por ambos. Las raíces Organization y Restaurant siguen las excepciones de E00 P-06 en la constitución.
 - Toda escritura deja registro en auditoría: quién, qué, cuándo, antes y después.
 - Los permisos se validan en el servidor, no solo escondiendo botones.
 - No agregues paquetes NuGet que no estén en el plan sin preguntar.

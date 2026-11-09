@@ -169,8 +169,10 @@ AC-PLT-01 a 03, 06, 13 y 18 se verifican completamente en E00. La auditoría se 
 
 | ID | Pregunta | Contesta | Estado |
 |---|---|---|---|
-| P-01 | ¿Dónde se hospeda? La propuesta es Azure App Service + Azure Database for PostgreSQL en una región de EUA (cerca de Baja California). | Equipo | Abierta |
+| P-01 | ¿Dónde se hospeda? La propuesta es Azure App Service + Azure Database for PostgreSQL en una región de EUA (cerca de Baja California). Decisión parcial del usuario (2026-11-05): STG estará en Azure para QA; los recursos se crearán cuando exista funcionalidad comprobable. Servicios, región y hospedaje de producción siguen pendientes. | Equipo | Parcialmente resuelta (STG en Azure) |
 | P-02 | ¿Se acepta Firebase Cloud Messaging para las notificaciones *push* (Android y iOS)? | Equipo | Abierta |
 | P-03 | ¿5 años de auditoría es suficiente, o el SAT y los clientes piden más? | Equipo | Abierta |
 | P-04 | ¿Qué proveedor de correo transaccional usamos (por ejemplo, SendGrid o Amazon SES)? | Equipo | Abierta |
 | P-05 | ¿Quién redacta el aviso de privacidad y los términos (abogado)? | Equipo | Abierta |
+| P-06 | Aprobada 2026-11-05: Organization es raíz sin RestaurantId, restringida a la organización autorizada. Restaurant es raíz con Id y OrganizationId, sin RestaurantId redundante; filtro de organización y restaurante y relación organizacional obligatoria. TenantEntity conserva ambos identificadores y filtros por ambos. Las raíces comparten los metadatos de creación/modificación. Ninguna excepción habilita acceso con contexto ausente, inválido o no autorizado. | Benji y Daniel | Aprobada |
+| P-07 | Aprobada 2026-11-05: solo la definición de ICurrentUser de plan §5 pasa a T004, en Domain/Platform/Abstractions según contratos.md. La implementación autenticada sigue en T009 o su tarea de autenticación designada. Sin usuarios o tenants ficticios ni implementaciones no-op; las operaciones de datos requieren contexto válido y fallan explícitamente si falta. | Benji y Daniel | Aprobada |

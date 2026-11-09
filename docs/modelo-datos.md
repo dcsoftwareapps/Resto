@@ -6,6 +6,7 @@ Un mapa de todas las tablas para que nadie cree dos veces lo mismo. El detalle d
 
 - Llave `Id` de tipo `Guid` (UUID v7, ordenable por fecha).
 - `OrganizationId` y `RestaurantId` en toda tabla de negocio, con filtro global (E00). Una *organización* es el cliente que paga y un *restaurante* es cada sucursal. Desde el día uno se modela así, aunque la mayoría tenga una sola sucursal, para que E20 no obligue a migrar todo.
+- Excepciones de raíz (E00 P-06, aprobada 2026-11-05): Organization no lleva RestaurantId y se restringe por su Id de organización; Restaurant lleva Id y OrganizationId, sin RestaurantId redundante, y se restringe por ambos. La relación Restaurant → Organization se exige en PostgreSQL. Las entidades de restaurante heredan TenantEntity y sus filtros exigen ambos identificadores. El contexto ausente o inválido no habilita acceso global.
 - `CreatedAt`, `CreatedBy`, `UpdatedAt` y `UpdatedBy` los llena E00 automáticamente.
 - Nada se borra físicamente. Se usa `IsActive` o un estado.
 - El dinero va en `numeric(12,2)` y las cantidades de inventario en `numeric(12,3)`.

@@ -57,6 +57,10 @@ Los usuarios, roles y permisos son tablas de E07. E00 crea una versión mínima 
 - Un `SaveChangesInterceptor` llena los campos.
 - Otro interceptor escribe la auditoría de las entidades marcadas con `[Audited]`.
 
+**Decisiones P-06/P-07 aprobadas (2026-11-05).** Organization y Restaurant son raíces con los mismos metadatos comunes; solo la primera usa su Id como organización, y Restaurant tiene Id y OrganizationId con FK obligatoria. No llevan RestaurantId redundante. Las entidades TenantEntity filtran por OrganizationId y RestaurantId y su relación con Restaurant exige la pareja correcta. Las consultas de Organization se restringen a su Id y a la pertenencia del restaurante actual; Restaurant se filtra por Id y OrganizationId. El interceptor protege el alcance de las escrituras y los metadatos. No hay acceso global por falta de contexto.
+
+El contrato ICurrentUser de §5 se define en T004 en Domain/Platform/Abstractions; su implementación autenticada queda en T009 o su tarea de autenticación designada. T004 no registra un servicio de identidad. Para las herramientas EF, AppDbContextFactory requiere ConnectionStrings__Resto y permite crear el modelo sin identidad; las consultas y SaveChanges siguen rechazando ese contexto. Las pruebas usan Testcontainers con PostgreSQL real y una entidad exclusivamente de pruebas para comprobar el filtro TenantEntity; la prueba genérica de todas las entidades futuras sigue en T005.
+
 ## 4. Seguridad
 
 - **Correo y contraseña:** se hashean con `PasswordHasher<User>` de ASP.NET Core Identity, sin usar todo Identity.
@@ -184,6 +188,7 @@ Los grupos de rol están aislados por restaurante, según `docs/contratos.md`. T
 
 | Paquete | Dónde | Para qué |
 |---|---|---|
+| `Microsoft.EntityFrameworkCore.Design` | Infrastructure (PrivateAssets=all) | Herramientas y migración Initial de T004 |
 | `Npgsql.EntityFrameworkCore.PostgreSQL` | Infrastructure | PostgreSQL |
 | `Microsoft.EntityFrameworkCore.Sqlite` | App | Caché y cola sin conexión |
 | `Microsoft.AspNetCore.Authentication.JwtBearer` | Api | Tokens |

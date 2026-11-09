@@ -8,12 +8,14 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 
 - [x] **E00-T001** Crear la solución con la plantilla *MAUI Blazor Hybrid and Web App* + Domain, Contracts, Infrastructure, Api, Printing y los 3 proyectos de pruebas. Agregar `Directory.Build.props` y `Directory.Packages.props`. Comprobar que `dotnet build` y `dotnet test` corren en verde. (Codex, 2026-11-03, PR #2 integrado).
 - [x] **E00-T002** [P] GitHub Actions: compilar y probar en cada PR. (Daniel Chavez, 2026-11-04, PR #3 integrado; CI Windows y Linux aprobada).
-- [ ] **E00-T003** [P] `tokens.css`, `base.css` y `components.css` con los tokens de la constitución §8 y las clases del demo (`.btn`, `.pill`, `.chip`, `.kpi`, `.tbl`, `.panel`, `.modal`, `.seg`, `.toggle`). Fuentes de Google incluidas localmente en `wwwroot/fonts`.
-  - Comparar contra `img/01` y `03`.
+- [x] **E00-T003** [P] `tokens.css`, `base.css` y `components.css` con los tokens de la constitución §8 y las clases del demo (`.btn`, `.pill`, `.chip`, `.kpi`, `.tbl`, `.panel`, `.modal`, `.seg`, `.toggle`). Fuentes de Google incluidas localmente en `wwwroot/fonts`.
+  - Comparar contra `img/01` y `03`. (Codex, 2026-11-05, PR #4 integrado; compilación sin warnings ni errores y 14 pruebas aprobadas; revisión visual de T003 registrada en la entrega).
 
 ## Bloque B · Datos y multi restaurante
 
-- [ ] **E00-T004** `TenantEntity`, `AppDbContext` con filtro global por `RestaurantId`, interceptor de campos de creación y modificación, y tablas `organizations` y `restaurants`. Migración `Initial`. Depende de T001.
+- [ ] **E00-T004** `TenantEntity`, `AppDbContext` con filtro global por `OrganizationId` y `RestaurantId` (excepciones de raíz P-06), interceptor de campos de creación y modificación, y tablas `organizations` y `restaurants`. Migración `Initial`. Depende de T001.
+  - P-06 y P-07 aprobadas (2026-11-05): incluye solo el contrato ICurrentUser; raíces con las excepciones documentadas y filtros por ambos identificadores en TenantEntity. Pendiente de revisión humana.
+  - Validación local (2026-11-05): migración sin diferencias contra el modelo; pruebas PostgreSQL de T004 pendientes de ejecución por Docker no disponible (npipe://./pipe/docker_engine). No se acreditan aislamiento persistido, metadatos persistidos ni aplicación/reversión de la migración hasta ejecutarlas.
 - [ ] **E00-T005** Prueba de aislamiento genérica (BR-PLT-05, AC-PLT-07) que se ejecuta para toda entidad `TenantEntity` futura. Depende de T004.
 - [ ] **E00-T006** `IAuditLog` + tabla `audit_entries` + interceptor `[Audited]` con antes y después. Depende de T004.
   - Cumple: BR-PLT-06, AC-PLT-08.
@@ -23,7 +25,7 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 
 ## Bloque C · Acceso
 
-- [ ] **E00-T009** Tablas mínimas `users`, `roles` y `role_permissions` + catálogo `Permissions` en Contracts + `ICurrentUser`. Depende de T004.
+- [ ] **E00-T009** Tablas mínimas `users`, `roles` y `role_permissions` + catálogo `Permissions` en Contracts + implementación autenticada de `ICurrentUser` (contrato definido en T004). Depende de T004.
 - [ ] **E00-T010** Login con correo y JWT + refresh. Depende de T009.
   - Cumple: BR-PLT-03.
 - [ ] **E00-T011** Dispositivos: códigos de vinculación, registro, `X-Device-Token` y revocar. Depende de T009.
