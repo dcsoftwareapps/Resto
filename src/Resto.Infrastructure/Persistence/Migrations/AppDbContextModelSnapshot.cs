@@ -109,11 +109,162 @@ namespace Resto.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Id", "OrganizationId");
-
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("restaurants", (string)null);
+                });
+
+            modelBuilder.Entity("Resto.Domain.Users.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsSystem")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("OrganizationId")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RestaurantId")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId", "OrganizationId");
+
+                    b.ToTable("roles", (string)null);
+                });
+
+            modelBuilder.Entity("Resto.Domain.Users.RolePermission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<Guid>("OrganizationId")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Permission")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("RestaurantId")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId", "OrganizationId");
+
+                    b.HasIndex("RoleId", "Permission")
+                        .IsUnique();
+
+                    b.HasIndex("RoleId", "OrganizationId", "RestaurantId");
+
+                    b.ToTable("role_permissions", (string)null);
+                });
+
+            modelBuilder.Entity("Resto.Domain.Users.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Initials")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<Guid>("OrganizationId")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PinHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("RestaurantId")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId", "OrganizationId");
+
+                    b.HasIndex("RoleId", "OrganizationId", "RestaurantId");
+
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("Resto.Domain.Platform.Restaurant", b =>
@@ -121,6 +272,50 @@ namespace Resto.Infrastructure.Persistence.Migrations
                     b.HasOne("Resto.Domain.Platform.Organization", null)
                         .WithMany()
                         .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Resto.Domain.Users.Role", b =>
+                {
+                    b.HasOne("Resto.Domain.Platform.Restaurant", null)
+                        .WithMany()
+                        .HasForeignKey("RestaurantId", "OrganizationId")
+                        .HasPrincipalKey("Id", "OrganizationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Resto.Domain.Users.RolePermission", b =>
+                {
+                    b.HasOne("Resto.Domain.Platform.Restaurant", null)
+                        .WithMany()
+                        .HasForeignKey("RestaurantId", "OrganizationId")
+                        .HasPrincipalKey("Id", "OrganizationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Resto.Domain.Users.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId", "OrganizationId", "RestaurantId")
+                        .HasPrincipalKey("Id", "OrganizationId", "RestaurantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Resto.Domain.Users.User", b =>
+                {
+                    b.HasOne("Resto.Domain.Platform.Restaurant", null)
+                        .WithMany()
+                        .HasForeignKey("RestaurantId", "OrganizationId")
+                        .HasPrincipalKey("Id", "OrganizationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Resto.Domain.Users.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId", "OrganizationId", "RestaurantId")
+                        .HasPrincipalKey("Id", "OrganizationId", "RestaurantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

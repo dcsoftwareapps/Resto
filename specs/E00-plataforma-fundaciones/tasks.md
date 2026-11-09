@@ -35,6 +35,8 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 ## Bloque C · Acceso
 
 - [ ] **E00-T009** Tablas mínimas `users`, `roles` y `role_permissions` + catálogo `Permissions` en Contracts + implementación autenticada de `ICurrentUser` (contrato definido en T004). Depende de T004.
+  - **Validación disponible aprobada**. Compilación de la solución en Windows y Android con 0 errores y 0 warnings, 31 pruebas aprobadas sin PostgreSQL y migración sin diferencias contra el modelo. Implementación pendiente de revisión humana.
+  - **Validación de integración pendiente** · E00-T009 · `Resto.Api.Tests.Persistence.UsersAndRolesTests` (cuatro casos). Requiere un ejecutor con Testcontainers y PostgreSQL real (`postgres:17-alpine`), sin infraestructura disponible en el entorno local. Hito previsto: [validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario). Las pruebas permanecen sin ejecutar.
 - [ ] **E00-T010** Login con correo y JWT + refresh. Depende de T009.
   - Cumple: BR-PLT-03.
 - [ ] **E00-T011** Dispositivos: códigos de vinculación, registro, `X-Device-Token` y revocar. Depende de T009.
