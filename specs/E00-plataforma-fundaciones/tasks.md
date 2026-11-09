@@ -2,7 +2,7 @@
 
 Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede hacer en paralelo.
 
-> **E00 se termina completo antes de empezar otro epic** (orden en [`docs/epics.md`](../../docs/epics.md)). Los dos pueden trabajar en E00 a la vez: hay muchas tareas `[P]`. Antes de T020 y T024b hay que decidir E00 P-01 (hospedaje) y P-02 (*push*).
+> **Toda la implementación propia de E00 se integra antes de empezar E08**. La validación diferida se rige por [el proceso](../../docs/proceso.md#validación-diferida) (orden en [`docs/epics.md`](../../docs/epics.md)). Los dos pueden trabajar en E00 a la vez: hay muchas tareas `[P]`. Antes de T020 y T024b hay que decidir E00 P-01 (hospedaje) y P-02 (*push*).
 
 ## Bloque A · Solución
 
@@ -14,8 +14,17 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 ## Bloque B · Datos y multi restaurante
 
 - [ ] **E00-T004** `TenantEntity`, `AppDbContext` con filtro global por `OrganizationId` y `RestaurantId` (excepciones de raíz P-06), interceptor de campos de creación y modificación, y tablas `organizations` y `restaurants`. Migración `Initial`. Depende de T001.
-  - P-06 y P-07 aprobadas (2026-11-05): incluye solo el contrato ICurrentUser; raíces con las excepciones documentadas y filtros por ambos identificadores en TenantEntity. Pendiente de revisión humana.
-  - Validación local (2026-11-05): migración sin diferencias contra el modelo; pruebas PostgreSQL de T004 pendientes de ejecución por Docker no disponible (npipe://./pipe/docker_engine). No se acreditan aislamiento persistido, metadatos persistidos ni aplicación/reversión de la migración hasta ejecutarlas.
+  - P-06 y P-07 aprobadas (2026-11-05): incluye solo el contrato ICurrentUser; raíces con las excepciones documentadas y filtros por ambos identificadores en TenantEntity.
+  - **Implementación integrada** en PR #5 (`ded86eb`). **Validación disponible aprobada** en la entrega de T004: compilación Windows y Android sin errores ni warnings, 20 pruebas aprobadas fuera de PostgreSQL, comprobación del modelo sin diferencias y `git diff --check` aprobado.
+  - **Validación de integración pendiente** · E00-T004 · `Resto.Api.Tests.Persistence.AppDbContextTests` (ocho casos). La conexión al motor de contenedores no estaba disponible en el entorno local y la preparación falló antes de ejecutar las aserciones. Infraestructura requerida: un ejecutor con Testcontainers y PostgreSQL real (`postgres:17-alpine`). Hito previsto: [validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario).
+    - `BR_PLT_05_OrganizationsAreRestrictedToTheCurrentOrganization`
+    - `BR_PLT_05_RestaurantsAreRestrictedToBothTenantIdentifiers`
+    - `BR_PLT_05_TenantEntityUsesBothIdentifiersAndContextSpecificFilters`
+    - `BR_PLT_05_MissingContextFailsExplicitly`
+    - `BR_PLT_05_CrossTenantWritesAndTenantReassignmentAreRejected`
+    - `CreationAndModificationMetadataAreGeneratedAndCreationIsPreserved`
+    - `RestaurantOrganizationRelationshipIsEnforcedByPostgreSql`
+    - `InitialMigrationMatchesTheModelAndCanBeRolledBack`
 - [ ] **E00-T005** Prueba de aislamiento genérica (BR-PLT-05, AC-PLT-07) que se ejecuta para toda entidad `TenantEntity` futura. Depende de T004.
 - [ ] **E00-T006** `IAuditLog` + tabla `audit_entries` + interceptor `[Audited]` con antes y después. Depende de T004.
   - Cumple: BR-PLT-06, AC-PLT-08.

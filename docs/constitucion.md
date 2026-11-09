@@ -94,14 +94,18 @@ tests/
 
 ## 7. Definición de terminado
 
-Una tarea está terminada cuando:
+Para integrar la implementación de una tarea:
 
-1. Compila sin warnings nuevos y pasan todas las pruebas.
-2. Cumple los `AC-…` que la tarea cita.
+1. Compila sin errores ni warnings nuevos, pasan todas las pruebas unitarias ejecutables localmente y se aprueban el análisis estático y los demás controles aplicables y disponibles.
+2. Implementa los `AC-…` que la tarea cita y aporta evidencia de los escenarios verificables.
 3. Escribe auditoría si modifica datos.
 4. Valida permisos en el servidor si expone un endpoint.
 5. Se ve como el demo en escritorio (1366 px) y, si aplica, en celular (390 px).
-6. Tiene su casilla marcada en `tasks.md` y su PR revisado por la otra persona.
+6. Su PR recibe revisión humana antes del merge. Se mantiene una tarea por rama y PR, con implementaciones reales en producción.
+
+En la ruta E00 → E08 → E04, la falta de infraestructura permite diferir las pruebas de integración dependientes de PostgreSQL al [hito de validación de Inventario](proceso.md#hito-de-validación-de-inventario). Con los controles disponibles aprobados, la revisión humana y el diferimiento registrado, se puede integrar la implementación y continuar con las tareas dependientes.
+
+La casilla de `tasks.md` acredita **validación completa**. Se marca tras la integración y la aprobación de todas las verificaciones requeridas, incluidas las diferidas. Un epic queda totalmente validado cuando se aprueban todas las verificaciones que le corresponden.
 
 ## 8. Diseño
 

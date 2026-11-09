@@ -7,7 +7,7 @@
 
 `[P]` = se puede hacer en paralelo con otras `[P]` del mismo bloque.
 
-**Requisitos previos:** E00 y E08 completos según sus fronteras de aceptación. E20 P-01 resuelta el 2026-11-02: existencias por restaurante; Almacén sigue como propiedad/filtro, sin trasladar E20-T005/T006/T007.
+**Requisitos previos:** Implementación propia de E00 y E08 integrada, con controles disponibles aprobados y validación diferida registrada según [el proceso](../../docs/proceso.md#validación-diferida). E20 P-01 resuelta el 2026-11-02: existencias por restaurante; Almacén sigue como propiedad/filtro, sin trasladar E20-T005/T006/T007.
 
 ## Bloque A · Dominio (sin base de datos)
 
@@ -55,7 +55,7 @@
 
 ## Bloque C · Pantallas
 
-- [ ] **E04-T014** [P] Pasar los estilos del demo a `components.css`: tabla, indicadores, chips, barra de nivel y modal. Se realiza después del cierre de E00 y E08, sin duplicar los estilos base de E00-T003.
+- [ ] **E04-T014** [P] Pasar los estilos del demo a `components.css`: tabla, indicadores, chips, barra de nivel y modal. Se realiza después de integrar la implementación de E00 y E08, sin duplicar los estilos base de E00-T003.
   - Comparar contra `img/01`.
 - [ ] **E04-T015** `InventoryPage`, `InventorySummaryCards`, `InventoryFilters` e `IngredientTable` con los estados cargando, vacío, sin resultados y error. Depende de T009 y T014.
   - Comparar contra `img/01`, `02` y `03`.
