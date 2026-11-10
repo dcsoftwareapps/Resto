@@ -2,6 +2,7 @@ using Resto.Domain.Platform;
 
 namespace Resto.Domain.Users;
 
+[Audited("Users", "el usuario", nameof(FullName), nameof(Initials), nameof(RoleId), nameof(IsActive))]
 public sealed class User : TenantEntity
 {
     public required string FullName { get; set; }
