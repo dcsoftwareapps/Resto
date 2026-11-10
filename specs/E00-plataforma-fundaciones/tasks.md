@@ -26,6 +26,8 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
     - `RestaurantOrganizationRelationshipIsEnforcedByPostgreSql`
     - `InitialMigrationMatchesTheModelAndCanBeRolledBack`
 - [ ] **E00-T005** Prueba de aislamiento genérica (BR-PLT-05, AC-PLT-07) que se ejecuta para toda entidad `TenantEntity` futura. Depende de T004.
+  - **Validación disponible aprobada**. Compilación en Windows con destinos Windows y Android, 0 errores y 0 warnings. 40 pruebas aprobadas sin PostgreSQL, incluidas cinco de T005 para filtros, contexto inválido y claves foráneas. Pendiente de revisión humana.
+  - **Validación de integración pendiente** · E00-T005 · `Resto.Api.Tests.Persistence.UsersAndRolesTests.BR_PLT_05_AC_PLT_07_EveryMappedTenantEntityHidesOtherTenantRows`. Requiere un ejecutor con Testcontainers y PostgreSQL real (`postgres:17-alpine`), no disponible localmente. Hito previsto: [validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario). La prueba permanece sin ejecutar. Al incorporar una entidad de restaurante al modelo, sembrar filas de prueba en las tres sucursales de la suite.
 - [ ] **E00-T006** `IAuditLog` + tabla `audit_entries` + interceptor `[Audited]` con antes y después. Depende de T004.
   - Cumple: BR-PLT-06, AC-PLT-08.
   - **Validación disponible aprobada**. Compilación de la solución en Windows con los destinos Windows y Android, 0 errores y 0 warnings. 35 pruebas aprobadas sin PostgreSQL. Migración sin diferencias contra el modelo. Pendiente de revisión humana.

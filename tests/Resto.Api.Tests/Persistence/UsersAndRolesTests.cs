@@ -42,6 +42,45 @@ public sealed class UsersAndRolesTests : IAsyncLifetime
     public Task DisposeAsync() => _postgres.DisposeAsync().AsTask();
 
     [Fact]
+    public async Task BR_PLT_05_AC_PLT_07_EveryMappedTenantEntityHidesOtherTenantRows()
+    {
+        await using var first = Context(_organizationId, _firstRestaurant);
+        await using var sibling = Context(_organizationId, _secondRestaurant);
+        await using var foreign = Context(_otherOrganization, _otherRestaurant);
+        await using var mismatched = Context(_otherOrganization, _firstRestaurant);
+
+        foreach (var entity in TenantIsolationTests.TenantTypes(first))
+        {
+            var type = entity.ClrType;
+            var own = await TenantIsolationTests.QueryRows(first, type).ToListAsync();
+            var siblings = await TenantIsolationTests.QueryRows(sibling, type).ToListAsync();
+            var foreignRows = await TenantIsolationTests.QueryRows(foreign, type).ToListAsync();
+
+            AssertScope(own, entity.Name, _organizationId, _firstRestaurant);
+            AssertScope(siblings, entity.Name, _organizationId, _secondRestaurant);
+            AssertScope(foreignRows, entity.Name, _otherOrganization, _otherRestaurant);
+            Assert.Empty(await TenantIsolationTests.QueryRows(mismatched, type).ToListAsync());
+
+            Assert.NotNull(await TenantIsolationTests.QueryRows(first, type, own[0].Id).SingleOrDefaultAsync());
+            foreach (var row in siblings.Concat(foreignRows))
+            {
+                Assert.Null(await TenantIsolationTests.QueryRows(first, type, row.Id).SingleOrDefaultAsync());
+            }
+        }
+    }
+
+    private static void AssertScope(
+        IReadOnlyCollection<TenantIsolationTests.TenantRow> rows, string entity, Guid organization, Guid restaurant)
+    {
+        Assert.True(rows.Count > 0, $"Seed {entity} in all three scopes before validating tenant isolation.");
+        Assert.All(rows, row =>
+        {
+            Assert.Equal(organization, row.OrganizationId);
+            Assert.Equal(restaurant, row.RestaurantId);
+        });
+    }
+
+    [Fact]
     public async Task BR_PLT_05_UsersRolesAndGrantsAreScopedToTheRestaurant()
     {
         await using var db = Context(_organizationId, _firstRestaurant);
