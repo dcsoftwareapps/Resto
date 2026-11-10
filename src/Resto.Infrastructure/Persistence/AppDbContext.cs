@@ -21,6 +21,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
+    public DbSet<AuditEntry> AuditEntries => Set<AuditEntry>();
 
     internal ICurrentUser RequireCurrentUser()
     {
@@ -38,7 +39,7 @@ public class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.AddInterceptors(new EntityMetadataInterceptor());
+        optionsBuilder.AddInterceptors(new AuditInterceptor(), new EntityMetadataInterceptor());
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -79,6 +80,14 @@ public class AppDbContext : DbContext
             .HasForeignKey(x => new { x.RoleId, x.OrganizationId, x.RestaurantId })
             .HasPrincipalKey(x => new { x.Id, x.OrganizationId, x.RestaurantId })
             .OnDelete(DeleteBehavior.Restrict);
+
+        var auditEntries = modelBuilder.Entity<AuditEntry>();
+        auditEntries.ToTable("audit_entries");
+        auditEntries.Property(x => x.BeforeJson).HasColumnType("jsonb");
+        auditEntries.Property(x => x.AfterJson).HasColumnType("jsonb");
+        auditEntries.HasIndex(x => new { x.RestaurantId, x.OccurredAt }).IsDescending(false, true);
+        auditEntries.HasIndex(x => x.EntityId);
+        auditEntries.HasIndex(x => x.UserId);
 
         foreach (var entityType in modelBuilder.Model.GetEntityTypes().ToList())
         {

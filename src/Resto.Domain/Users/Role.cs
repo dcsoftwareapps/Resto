@@ -2,6 +2,7 @@ using Resto.Domain.Platform;
 
 namespace Resto.Domain.Users;
 
+[Audited("Users", "el rol", nameof(Name), nameof(IsSystem), nameof(IsActive))]
 public sealed class Role : TenantEntity
 {
     public Role(Guid organizationId, Guid restaurantId)

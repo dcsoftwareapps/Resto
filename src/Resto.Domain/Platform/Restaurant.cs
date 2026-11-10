@@ -1,5 +1,7 @@
 namespace Resto.Domain.Platform;
 
+[Audited("Platform", "el restaurante", nameof(Name), nameof(BranchName), nameof(TimeZone),
+    nameof(BusinessDayCutoff), nameof(NextOrderNumber), nameof(IsActive))]
 public sealed class Restaurant : Entity
 {
     public Guid OrganizationId { get; set; }

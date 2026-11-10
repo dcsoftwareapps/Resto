@@ -28,6 +28,8 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
 - [ ] **E00-T005** Prueba de aislamiento genérica (BR-PLT-05, AC-PLT-07) que se ejecuta para toda entidad `TenantEntity` futura. Depende de T004.
 - [ ] **E00-T006** `IAuditLog` + tabla `audit_entries` + interceptor `[Audited]` con antes y después. Depende de T004.
   - Cumple: BR-PLT-06, AC-PLT-08.
+  - **Validación disponible aprobada**. Compilación de la solución en Windows con los destinos Windows y Android, 0 errores y 0 warnings. 35 pruebas aprobadas sin PostgreSQL. Migración sin diferencias contra el modelo. Pendiente de revisión humana.
+  - **Validación de integración pendiente** · E00-T006 · `Resto.Api.Tests.Persistence.AuditPostgreSqlTests` (cuatro casos). Requiere un ejecutor con Testcontainers y PostgreSQL real (`postgres:17-alpine`). El entorno local carece de ese ejecutor. Las pruebas permanecen sin ejecutar hasta el [hito de validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario).
 - [ ] **E00-T007** [P] `IClock` con `BusinessDay`. Depende de T001.
   - Cumple: BR-PLT-11, AC-PLT-15.
 - [ ] **E00-T008** `DevSeed` con los datos del demo: restaurante, 9 usuarios y 6 roles. Insumos y platillos los agregan E04 y E05 en su propio seed. Depende de T004 y T009.
