@@ -42,6 +42,28 @@ public sealed class UsersAndRolesTests : IAsyncLifetime
     public Task DisposeAsync() => _postgres.DisposeAsync().AsTask();
 
     [Fact]
+    public async Task BR_PLT_11_ClockFactoryUsesOnlyTheAuthorizedRestaurantSettings()
+    {
+        await using var first = Context(_organizationId, _firstRestaurant);
+        await using var second = Context(_organizationId, _secondRestaurant);
+        await using var mismatched = Context(_otherOrganization, _firstRestaurant);
+        var secondRestaurant = await second.Restaurants.SingleAsync();
+        secondRestaurant.TimeZone = "Asia/Tokyo";
+        secondRestaurant.BusinessDayCutoff = new TimeOnly(6, 0);
+        await second.SaveChangesAsync();
+
+        var firstClock = await new RestaurantClockFactory(first, TimeProvider.System).CreateAsync();
+        var secondClock = await new RestaurantClockFactory(second, TimeProvider.System).CreateAsync();
+        var instant = new DateTimeOffset(2026, 1, 2, 10, 0, 0, TimeSpan.Zero);
+        Assert.Equal(new DateOnly(2026, 1, 1), firstClock.BusinessDay(instant));
+        Assert.Equal(new DateOnly(2026, 1, 2), secondClock.BusinessDay(instant));
+        Assert.Equal(new DateOnly(2026, 1, 2), secondClock.BusinessDay(instant.AddHours(10)));
+        Assert.Equal(new DateOnly(2026, 1, 3), secondClock.BusinessDay(instant.AddHours(11)));
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            new RestaurantClockFactory(mismatched, TimeProvider.System).CreateAsync());
+    }
+
+    [Fact]
     public async Task BR_PLT_05_AC_PLT_07_EveryMappedTenantEntityHidesOtherTenantRows()
     {
         await using var first = Context(_organizationId, _firstRestaurant);
