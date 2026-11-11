@@ -34,6 +34,8 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
   - **Validación de integración pendiente** · E00-T006 · `Resto.Api.Tests.Persistence.AuditPostgreSqlTests` (cuatro casos). Requiere un ejecutor con Testcontainers y PostgreSQL real (`postgres:17-alpine`). El entorno local carece de ese ejecutor. Las pruebas permanecen sin ejecutar hasta el [hito de validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario).
 - [ ] **E00-T007** [P] `IClock` con `BusinessDay`. Depende de T001.
   - Cumple: BR-PLT-11, AC-PLT-15.
+  - **Validación disponible aprobada**. Compilación de Windows y Android con 0 errores y 0 warnings. 57 pruebas locales aprobadas, incluidas 17 del reloj. Pendiente de revisión humana.
+  - **Validación de integración pendiente** · E00-T007 · `Resto.Api.Tests.Persistence.UsersAndRolesTests.BR_PLT_11_ClockFactoryUsesOnlyTheAuthorizedRestaurantSettings`. El entorno local carece del ejecutor Testcontainers con PostgreSQL real (`postgres:17-alpine`) que requiere esta prueba. Ejecución prevista en el [hito de validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario).
 - [ ] **E00-T008** `DevSeed` con los datos del demo: restaurante, 9 usuarios y 6 roles. Insumos y platillos los agregan E04 y E05 en su propio seed. Depende de T004 y T009.
 
 ## Bloque C · Acceso
