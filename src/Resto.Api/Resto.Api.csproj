@@ -3,6 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <InternalsVisibleTo Include="Resto.Api.Tests" />
     <ProjectReference Include="..\Resto.Domain\Resto.Domain.csproj" />
     <ProjectReference Include="..\Resto.Contracts\Resto.Contracts.csproj" />
     <ProjectReference Include="..\Resto.Infrastructure\Resto.Infrastructure.csproj" />

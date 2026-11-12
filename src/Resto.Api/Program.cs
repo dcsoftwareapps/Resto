@@ -1,9 +1,19 @@
 using Microsoft.EntityFrameworkCore;
+using Resto.Api.Development;
 using Resto.Api.Security;
 using Resto.Domain.Platform.Abstractions;
 using Resto.Infrastructure.Persistence;
 
-var builder = WebApplication.CreateBuilder(args);
+var seedRequested = DevSeed.IsRequested(args);
+var builder = WebApplication.CreateBuilder(seedRequested ? [] : args);
+if (seedRequested)
+{
+    var created = await DevSeed.RunAsync(builder.Environment.EnvironmentName,
+        builder.Configuration.GetConnectionString("Resto"));
+    Console.WriteLine(created ? "Datos del demo creados." : "Los datos del demo ya existen.");
+    return;
+}
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, HttpCurrentUser>();
 builder.Services.AddScoped<IAuditLog, AuditLog>();
