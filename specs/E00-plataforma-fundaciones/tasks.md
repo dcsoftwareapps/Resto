@@ -37,6 +37,9 @@ Formato y reglas en [`docs/proceso.md`](../../docs/proceso.md). `[P]` = se puede
   - **Validación disponible aprobada**. Compilación de Windows y Android con 0 errores y 0 warnings. 57 pruebas locales aprobadas, incluidas 17 del reloj. Pendiente de revisión humana.
   - **Validación de integración pendiente** · E00-T007 · `Resto.Api.Tests.Persistence.UsersAndRolesTests.BR_PLT_11_ClockFactoryUsesOnlyTheAuthorizedRestaurantSettings`. El entorno local carece del ejecutor Testcontainers con PostgreSQL real (`postgres:17-alpine`) que requiere esta prueba. Ejecución prevista en el [hito de validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario).
 - [ ] **E00-T008** `DevSeed` con los datos del demo: restaurante, 9 usuarios y 6 roles. Insumos y platillos los agregan E04 y E05 en su propio seed. Depende de T004 y T009.
+  - Con las migraciones aplicadas en la base de desarrollo indicada por `ConnectionStrings__Resto`, establecer `DOTNET_ENVIRONMENT=Development` y ejecutar `dotnet run --project src/Resto.Api --no-launch-profile -- seed-demo`. El comando registra las altas con un actor de sistema limitado al tenant del demo y conserva los cambios existentes al repetirse.
+  - **Validación disponible aprobada**. Compilación de Windows y Android con 0 errores y 0 warnings. 64 pruebas locales aprobadas, incluidas siete de T008. Pendiente de revisión humana.
+  - **Validación de integración pendiente** · E00-T008 · `Resto.Api.Tests.Development.DevSeedPostgreSqlTests` (cuatro casos). El entorno local carece del ejecutor Testcontainers con PostgreSQL real (`postgres:17-alpine`). Ejecución prevista en el [hito de validación de Inventario](../../docs/proceso.md#hito-de-validación-de-inventario).
 
 ## Bloque C · Acceso
 
